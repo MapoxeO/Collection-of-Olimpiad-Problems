@@ -1,0 +1,85 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel} 
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm, nohead, nofoot]{geometry}
+\usepackage{amsmath,amsfonts,amssymb} % математический пакет
+\usepackage{fancybox,fancyhdr} 
+\usepackage{multirow}
+\usepackage{commath}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\href{https://vk.com/mapoxeo}{MapoxeO}}
+\fancyfoot[R]{\thepage} 
+\fancyhead[L]{Решение олимпиадных и нестандартных задач по математике}
+\setcounter{page}{1} % счетчик нумерации страниц
+\headsep=10mm 
+\usepackage{xcolor}
+\usepackage{hyperref} 
+\hypersetup{colorlinks=true, allcolors=[RGB]{010 090 200}} % цвет ссылок 
+
+\usepackage{tocloft}    % содержание
+\usepackage{titlesec}   % заголовки
+\usepackage{enumitem}   % списки
+\usepackage{graphicx}   % для картинок
+\usepackage{float}      % для положения картинок
+\usepackage{multicol}   % колонки
+\usepackage{asymptote}  % создание рисунков
+\usepackage{comment}    % комментирование
+\usepackage{tikz}       % еще один пакет для создания рисунков
+\usepackage{wrapfig}    % для верстки иллюстраций
+\usepackage{pgfplots}   % для графиков
+\usepackage{wrapfig} 
+\usepackage{caption}    % для оглавления
+\usetikzlibrary{patterns} % для шаблонов
+\usepgfplotslibrary{fillbetween}
+
+\setlength{\footskip}{12.0pt}
+\setlength{\headheight}{12.0pt}
+
+\newcounter{taskcounter} % Создаём счётчик для уравнений
+\setcounter{taskcounter}{0}
+\pgfplotsset{compat=1.18}
+
+% Создаем пользовательский шаблон штриховки
+\pgfdeclarepatternformonly{fill_hatch}
+{\pgfqpoint{-1pt}{-1pt}} % Начальная точка
+{\pgfqpoint{4pt}{4pt}} % Размер шаблона
+{\pgfqpoint{4pt}{4pt}} % Смещение
+{
+    \pgfsetlinewidth{0.4pt} % Толщина линии
+    \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+    \pgfpathlineto{\pgfqpoint{20pt}{20pt}}
+    \pgfusepath{stroke}
+}
+
+% shortcuts
+\newcommand{\lr}[1]{\left( {#1} \right)}
+\newcommand{\floor}[1]{\left \lfloor {#1} \right \rfloor}
+\newcommand{\ceil}[1]{\left \lceil {#1} \right \rceil}
+%\newcommand{\abs}[1]{\left| {#1} \right|}
+\newcommand{\task}[3]{
+    \stepcounter{taskcounter}
+    \subsection*{Задача  \thetaskcounter.} \label{task:\thetaskcounter}
+    #1
+    \paragraph {Решение:}
+    #2
+    \paragraph {Ответ:}
+    #3 \\
+}
+
+\renewcommand{\theequation}{\arabic{equation}}
+
+% Настройка стиля оглавления
+\renewcommand{\cftsecfont}{\normalfont\bfseries} % Жирный шрифт для разделов
+\renewcommand{\cftsubsecfont}{\normalfont\itshape} % Курсив для подразделов
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Точки между названием и номером страницы
+
+\begin{document}
+    \tableofcontents \newpage
+    \input{src/categories/text}
+    \input{src/categories/series}
+    
+    %\pageref{task:10}
+    \input{src/categories/tasks}
+\end{document}

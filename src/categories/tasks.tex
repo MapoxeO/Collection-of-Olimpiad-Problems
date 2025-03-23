@@ -1,0 +1,658 @@
+\task {
+    Найти, на какую цифру заканчивается десятичная запись числа $\displaystyle \frac{7^{2019}}{5^{2020}}$.
+} {
+    Хорошо известно, что несократимая дробь вида $\displaystyle \frac ab$ представляется в десятичном виде в виде непериодической дроби тогда и только тогда, когда все делители числа b являются какой-либо степенью делителей числа 10. Так как $5^{2020}$ является степенью делителя числа $10$, тогда наше число $\displaystyle x = \frac{7^{2019}}{5^{2020}}$ представляется в виде конечной десятичной дроби.\\[5mm]
+    
+    Тогда можно домножить наше число $x$ таким образом на степень $10$, чтобы оно стало натуральным, причем последняя цифра была не нулём. Именно она является последней цифрой десятичной записи нашего числа $x$.\\[5mm]
+    
+    Домножим $x$ на $10^{2020}$, получим:
+    $$ A = x \cdot 10 ^ {2020} = \frac{7 ^ {2019} \cdot 10 ^ {2020}}{5 ^ {2020}} = 2 \cdot 14 ^ {2019} $$
+    
+    Тогда нам остается узнать, на какую цифру оканчивается число $A$. Поступим следующим образом:
+    \begin{equation}
+        A \equiv 2  \cdot 14^{2019} \stackrel{^{(*)}}{\equiv} 2 \cdot 4^{2019} \equiv 2 \cdot 2 ^ {4038} \equiv 2^{4039} \pmod{10}
+    \end{equation}
+    Сравнение $(*)$ справедливо, так как $ 14 \equiv 4 \pmod{10} $.\\[2mm]
+    
+    Для того, чтобы найти остаток деления $\displaystyle 2^{4039}$, составим таблицу остатков степеней двойки при делении на $10$.\\
+    \begin{center} \begin{tabular}{ |c|c|c|c| } 
+        \hline
+        $k$ & $2^k$ & $2^k \mod 10$ & $i$ \\ \hline
+        0 & 1 & 1   & - \\     \hline
+        1 & 2 & 2   & 0 \\
+        2 & 4 & 4   & 1 \\ 
+        3 & 8 & 8   & 2 \\ 
+        4 & 16 & 6  & 3 \\    \hline
+        5 & 32 & 2  & 0 \\
+        6 & 64 & 4  & 1 \\ 
+        7 & 128 & 8 & 2\\
+        8 & 256 & 6 & 3 \\   \hline
+        & \ldots & \ldots &  \ldots \\   \hline
+    \end{tabular} \end{center}
+    Очевидно, что остатки степеней двойки подчиняются простому периодичному закону.\\
+    
+    Найдем остаток $i$ деления числа $4039$ на $4$, за вычетом 1, которому служит первая строка с $k = 0$:
+        $$ 4039 - 1 \equiv 4038 \equiv 4036 + 2 \equiv 0 + 2 \equiv 2 \pmod{4}$$
+    Таким образом, числу $4039$ соответствует остаток $i = 2$, тогда, подставим результат в $(1)$:
+        $$ A \equiv 2^{4039} \equiv 2^{3} \equiv 8 \pmod{10}$$
+    Стало быть, число $A$ заканчивается на цифру $8$, но это значит, что десятичная запись нашего исходного числа $ \frac{7^{2019}}{5^{2020}}$ заканчивается на ту же цифру.
+}{ 8. }\newpage
+\task{
+    На ребрах и вершинах куба стоят натуральные числа от $2001$ до $2020$ (все числа различные). Может ли быть, что числа, стоящие на каждом ребре, являются средними арифметическими чисел в соответствующих вершинах?
+}{
+    Предположим, что утверждение верно. Пусть $X$ — множество чисел, данных в задании. Нетрудно показать, что $ \left| X \right| = 20$. Хорошо известно, что у куба $12$ ребер и $8$ вершин, а сумма их количества в точности равна $12 + 8 = 20$, что равно $\left| X \right|$. Значит, каждому числу из $X$ соответствует единственное ребро или единственная вершина куба. Следовательно, числа $2001$ и $2020$ обязательно будут использоваться для обозначения двух вершин, потому что оба числа не могут быть средним арифметическим двух других различных чисел из $X$. \\
+    
+    Далее, так как на ребрах и вершинах стоят числа из $X \subset \mathbb{N}$, то любые две смежные вершины должны иметь числа одной четности для того, чтобы их среднее арифметическое было натуральным. Тогда возможно только два случая: все вершины несут только четные числа  или только нечетные числа. Однако, выше мы показали, что числа $2001$ и $2020$ обязательно будут на двух вершинах, а они разной четности, и мы получили противоречие. Следовательно, изначальное утверждение неверно.
+}{ Нет, не может. }\newpage
+\task{
+    Доказать неравенство $\displaystyle \frac1{2020} < \ln{\frac{2020}{2019}} < \frac1{2019}$. \\[2mm] \textit{Подсказка: Использовать разложение функции $y = \ln{(1+x)}$ в ряд Тейлора}
+} {
+     Выведем выражение ряда Маклорена \textit{(частный случай ряда Тейлора при $x_0 = 0$)} для функции $y = \ln{(1+x)}$. Для этого необходимо найти общую формулу производной $n\text{-го}$ порядка в точке $x_0 = 0$. Найдем несколько первых производных этой функции:
+    \begin{align*}
+        y &= \ln(1+x) \\
+        y' &= (1+x)^{-1} \\
+        y'' &= (-1)\cdot(1+x)^{-2} \\
+        y''' &= (-1)\cdot(-2)\cdot(1+x)^{-3} \\
+        y^{(4)} &= (-1)\cdot(-2)\cdot(-3)(1+x)^{-4} \\
+        &\ldots \\
+        y^{(n)} &= (-1)^{n-1}(n-1)!\:(1+x)^{-n}
+    \end{align*}
+    Последняя строчка представляет собой предположение формулы для $n \in \mathbb{N}$. Докажем эту формулу методом мат. индукции: \\
+
+    База индукции: $\displaystyle y^{(1)} = (-1)^{1 - 1}(1 - 1)!\:(1+x)^{-1} = (1+x)^{-1} = y'$ \\
+    \indent Шаг индукции: $\displaystyle y^{(n+1)} = (-1)^nn!\:(1+x)^{-n-1}$\\
+    \indent По формуле вычисления производной высших порядков: \\
+    \indent $\displaystyle y^{(n+1)} = \lr{y^{(n)}}'=(-1)^{n-1}(n-1)!\:(-n)(1+x)^{-n-1} = (-1)^{n}n!\:(1+x)^{-n-1}$\\[2mm]
+            
+    Стало быть, шаг индукции доказан. Следовательно, формула справедлива для $\forall n \in \mathbb{N}$ по методу мат. индукции.\\
+    Вычислим $\displaystyle y^{(n)}(0) = (-1)^{n-1}(n-1)!$ а также $y^{(0)}(0) = y(0) = \ln{1} = 0$.\\
+    Тогда ряд Маклорена для нашей функции примет вид:
+        $\displaystyle y = \ln{(1+x)} = \sum_{n=0}^{\infty}{ \frac{y^{(n)}(0)}{n!}x^n } = \sum_{n=1}^{\infty}{ \frac{(-1)^{n-1}}{n}x^n }$\\
+    Так оценим число $\displaystyle \ln\frac{2020}{2019}$ сверху:
+        $$ \ln{\frac{2020}{2019}} =  \frac1{2019}-\frac1{2\cdot2019^2} + \ldots$$
+    Ряд знакочередующийся, и каждый последующий член меньше по модулю предыдущего согласно теореме Лейбница, следовательно справедливо равенство:
+    \begin{equation*}
+        \ln\frac{2020}{2019} < \frac1{2019} \eqno(1)
+    \end{equation*}\\
+    Оценим выражение снизу, для этого оценим аргумент логарифма снизу. Перепишем его в виде:
+        $$\displaystyle \frac{2020}{2019} = 1 + \frac1{2019} > 1 + \frac1{1!\cdot2020} + \frac1{2!\cdot2020^2} + \frac1{3!\cdot2020^3} + \ldots = e^{\frac1{2020}}$$
+    Правая часть этого неравенства представляет собой ряд Маклорена функции $e^x$ в точке $x = \frac1{2020}$. Прологарифмируем его и получим оценку снизу:
+        $$ e^{\frac1{2020}} < \frac{2020}{2019}\  \Leftrightarrow \ \frac1{2020} < \ln\frac{2020}{2019} \eqno(2)$$\\
+    Из неравенств (1) и (2) получаем окончательную оценку: $ \frac1{2020} < \ln{\frac{2020}{2019}} < \frac1{2019}$, что и требовалось доказать.
+}{ Q.E.D. }\newpage
+\task{
+    Найти сумму ряда
+    $$\sum_{n=1}^{\infty}{\frac{n+1}{3^n}}$$
+}{
+    Обозначим сумму как $S$ и преобразуем ее следующим образом:
+    $$S = \sum_{n=1}^{\infty}{\frac{n+1}{3^n}} = \left[
+    \begin{matrix}
+        n + 1 = p \Rightarrow n = p - 1\\
+        n = 1 \Rightarrow p = 2\\
+        n \rightarrow \infty \Rightarrow p \rightarrow \infty \\
+    \end{matrix} \right] =
+    \sum_{p=2}^{\infty}{\frac{p}{3^{p - 1}}} \stackrel{^{(*)}}{=} 3 \cdot \lr{\sum_{p=1}^{\infty}{\frac{p}{3^{p}}} - \frac13} =
+    3 \cdot \underbrace{\sum_{n=1}^{\infty}{\frac{n}{3^n}}}_\text{K} - 1$$
+    Последнее равенство справделиво, так как не важно, как называется переменная суммирования, поэтому можно просто переобозначить ее снова как $n$. Равенство $(*)$ верное, так как можно вынести множитель из суммы и добавить дополнительный член суммы. Обозначим сумму в последнем равенстве как $K$. Выразим ее через $S$:
+    
+    $$ S = 3K - 1 \Rightarrow K = \frac{S + 1}3 $$
+    Еще немного преобразуем сумму $S$:
+    $$S = \sum_{n=1}^{\infty}{\frac{n+1}{3^n}} = \underbrace{\sum_{n=1}^{\infty}{\frac{n}{3^n}}}_\text{K} + \sum_{n=1}^{\infty}{\frac1{3^n}} \eqno(1)$$
+    
+    Подставим в $(1)$ выражение для $K$ и выразим $S$:
+        $$ S = \frac{S+1}3 + \sum_{n=1}^{\infty}{\frac1{3^n}} \quad \Rightarrow \quad S = \frac12 + \frac32 \sum_{n=1}^{\infty}{\frac1{3^n}} \eqno(2)$$
+    
+    Остается найти последнюю сумму. Хорошо известно, что это разложение функции $\displaystyle \frac{x}{1-x}$ в ряд. Воспользуемся этим фактом, чтобы вычислить эту сумму:
+        $$ \frac{x}{1-x} = \sum_{n = 1}^{\infty}{x^n} \quad \Rightarrow \quad \sum_{n=1}^{\infty}{\frac1{3^n}} = \frac{\frac13}{1 - \frac13} = \frac1{3-1}=\frac12$$
+        
+    Подставим получившееся значение в $(2)$, и мы получим окончательный ответ:
+        $$ S = \frac12 + \frac32 \cdot \frac12 = \frac54 = 1.25 $$
+}{ 1.25 }\newpage
+\task{
+    За $10$ минут чай охладился от $100^\circ\text{C}$ до  $60^\circ\text{C}$. За какое время он остынет до $25^\circ\text{C}$, если температура воздуха в комнате $20^\circ\text{C}$, а скорость остывания пропорциональная разности температур чая и среды?
+}{
+    Пусть $T(t)$ --- функция температуры чая от времени в минутах и $T_0 = 20$ --- температура окружающей среды \textit{(воздуха)}. Тогда условие скорости остывания можно записать в виде:
+        $$ \frac{\mathrm{d}T}{\mathrm{d}t} = k(T - T_0) \  \text{---  Д.У. $1^\text{\underline{го}}$ порядка с разделяющимися переменными, где $k$ --- какая-то постоянная.}$$
+        
+    Решим его, разделив переменные:
+        $$\frac{\mathrm{d}T}{T-T_0}=k\mathrm{d}t$$
+        $$\int \frac{\mathrm{d}T}{T-T_0} = \int k\mathrm{d}t \quad  \Leftrightarrow \quad \ln \left| T-T_0\right| = kt + C_1 \quad  \Leftrightarrow \quad T(t) = T_0 + Ce^{kt}$$
+    
+    Решим задачу Коши. Подставим начальные условия $T_0 = 20,\ T(0) = 100,\ T(10) = 60$ в получившиееся уравнение. \\[6mm]
+    Получим:
+    $$ \begin{cases}
+        100 = 20 + Ce^{k \cdot 0} \\
+        60 = 20 + Ce^{k \cdot 10}
+    \end{cases} \Leftrightarrow 
+    \begin{cases}
+        80 = C \\
+        40 = Ce^{k \cdot 10}
+    \end{cases} \Leftrightarrow 
+    \begin{cases}
+        C = 80\\
+        e^k = 2^{-0.1}
+    \end{cases}$$
+    
+    Тогда наше уравнение зависимости температуры от времени примет вид:
+        $$T(t) = 20 + 80\cdot2^{-0.1t}$$
+        
+    Вычислим искомое значение времени, за которое чай остынет до температуры $20^{\circ}\text{C}$:
+        $$ 25 = 20 + 80 \cdot 2^{-0.1t}$$
+        $$ \frac1{16} = 2^{-0.1t} \  \Rightarrow \  2^{-4} = 2^{-0.1t} \ \Rightarrow \  t = 40\  \text{мин.}$$
+}{ 40 мин. }\newpage
+\task{
+    Найти общее решение дифференциального уравнения: $y = xy' + x^2y'', \ x>0$
+}{
+    \indent\subparagraph{Способ 1.}
+    Перепишем наше дифференциальное уравнение в виде: $x^2y'' + xy' - y = 0$. Видно, что мы имеем дело с ЛОДУ $2^ \text{\underline{го}}$ порядка.\\
+    
+    Его решение представляется в виде: $y = C_1y_1(x) + C_2y_2(x)$, где $C_1, C_2$ -- произвольные константы, а $y_1(x)$ и $y_2(x)$ -- две линейно-независимые функции, которые являются частными решениями ЛОДУ.\\
+    
+    Найдем их с помощью метода подбора. Заметим, что функции $y = x$ и $ y = \frac1x$ являются частными решениями этого Д.У. Действительно:\\
+    \begin{align*}
+        (y = x)&& x^2  \cdot x'' + x \cdot x' - x = 0 + x - x = 0\\
+        \lr{y = \frac1x} && x^2 \cdot \lr{\frac1x}'' + x \cdot \lr{\frac1x}' - \frac1x = \frac2x - \frac1x - \frac1x = 0  
+    \end{align*}
+    
+    Также заметим, что две эти функции линейно-независимы. И вправду $\displaystyle \frac{x}{\frac1x} = x^2 \neq \text{const}.$\\
+    
+    Стало быть, эти две функции образуют фундаментальную систему решений нашего ЛОДУ. Тогда общее решение этого Д.У. запишется  в виде:
+        $$y = C_1x + \frac{C_2}x$$
+
+    \indent\subparagraph{Способ 2.}
+        Это дифференциальное уравнение Эйлера, сделаем замену $x = e^t$, соответственно получим $\displaystyle y'_x = y'_t \cdot t'_x = y'_t \cdot \frac1{x'_t} = y'_t \cdot e^{-t}$ и $ y''_{xx} = \lr{y'_x}'_x = \lr{y'_t \cdot t'_x}'_x = y''_{tt} \lr{t'_x}^2 + y'_t \cdot t''_{xx} = e^{-2t} \cdot \lr{y''_{tt} - y'_t} $.
+        
+        Тогда наше уравнение примет вид:
+            $$y''(t) - y'(t) + y'(t) - y = 0$$
+            $$y''(t) - y = 0$$
+        Это ЛОДУ $2^{\underline{\text{го}}}$ порядка. Составим характеристическое уравнение: $\lambda^2 - 1 = 0$. Его корнями будут $\lambda_{1,2} = \pm 1$. Запишем общее решение, сделав обратную замену:
+            $$y(t) = C_1e^t + C_2e^{-t}$$
+            $$y(x) = C_1x + \frac{C_2}{x}$$
+}{ $\displaystyle y = C_1x + \frac{C_2}x$ }\newpage
+\task{
+    Решить дифференциальное уравнение
+    $$\int \limits_{0}^{\frac{dy}{dx}} { \frac{\cos t\  dt}{16 + 9 \sin^2 t} } = \frac1{12}\arctg{x}$$
+}{
+    Чтобы найти решение этого дифференциального уравнения, необходимо вычислить соответствующий интеграл:
+    $$ \int \frac{\cos t \ dt}{16 + 9 \sin^2 t} = \left[ \begin{matrix}
+        u = \sin t \\
+        du = \cos t dt \\
+        \end{matrix} \right] = \frac1{16} \int \frac{du}{1 + \frac{9}{16}u^2} = \frac1{16} \int \frac{ \frac43 d\lr{\frac{3u}4}}{1 + \lr{\frac{3u}4}^2} = \frac1{12} \arctg{\frac{3 \sin t}4}$$
+        
+    Тогда наше уравнение примет следующий вид:
+        $$ \int \limits_{0}^{\frac{dy}{dx}} { \frac{\cos t\  dt}{16 + 9 \sin^2 t} } = \eval{ \frac1{12} \arctg{\frac{3 \sin t}4} }_0^{y'} = \frac1{12} \arctg{\frac{3 \sin y'}4} = \frac1{12}\arctg{x}$$
+        
+    Теперь воспользуемся тем, что функция $f(x) = \arctg x$ строго монотонная на $\mathbb{R}$, значит если значения функций равны, то и аргументы функций обязаны быть равны:
+        $$ \frac1{12} \arctg{\frac{3 \sin y'}4} = \frac1{12}\arctg{x} \ \Leftrightarrow \ \frac{3 \sin y'}4 = x \  \Leftrightarrow \  \sin y' = \frac{4x}{3}$$
+    
+    Это уравнение имеет решение только при $\displaystyle \left| \frac{4x}{3} \right| \leq 1$, т.е. при $ \frac34 \leq x \leq \frac34$. Разрешим его относительно производной как обычное тригонометрическое уравнение с синусом:
+        $$\sin y' = \frac{4x}3 \ \Leftrightarrow \ y' = (-1)^k \arcsin{\frac{4x}3} + \pi k, \ k \in\mathbb{Z}$$
+        $$y = \int \lr{(-1)^k \arcsin{\frac{4x}3} + \pi k} dt = C + \pi k x + \frac{3(-1)^k}4 \int \arcsin \lr{ \frac{4x}3 } d\lr{\frac{4x}3}$$
+    
+    Остается только найти интеграл от арксинуса. Сделаем это отдельно:
+    \begin{equation*} \begin{split}
+        & \int \arcsin{x} \ dx =
+        \left[ \begin{matrix}
+            u = \arcsin x &\Rightarrow & du = \frac{dx}{\sqrt{1-x^2}} \\
+            dv = dx &\Rightarrow & v = x \\
+        \end{matrix} \right]
+        = x \arcsin{x} - \int \frac{x}{\sqrt{1-x^2}} dx = \\
+        &= x \arcsin{x} + \int d\lr{\sqrt{1-x^2}} = x \arcsin{x} + \sqrt{1-x^2} + C
+    \end{split} \end{equation*}
+    
+    Тогда остается подставить полученный интеграл и получим наш ответ:
+        $$y = C + \pi kx + \frac{3(-1)^k}4\lr{ \frac{4x}3 \arcsin{\frac{4x}3} + \sqrt{1 - \lr{\frac{4x}3}^2}}$$
+        $$y = C + \pi kx + (-1)^k\lr{ x \arcsin{\frac{4x}3} + \sqrt{\lr{\frac34}^2 - x^2}}, \ k\in\mathbb{Z}$$
+}{ $y = C + \pi kx + (-1)^k\lr{ x \arcsin{\frac{4x}3} + \sqrt{\lr{\frac34}^2 - x^2}}, \ k\in\mathbb{Z}$ }\newpage
+
+\task {
+    Вычислить $$ \iint \limits_D \frac{dxdy}{x^3+y^3},\quad \text{где }D \colon\
+    \begin{cases}
+        x + y \geqslant 1 \\
+        x \geqslant 0 \\
+        y \geqslant 0
+    \end{cases}$$
+} {\; % для правильного выравнивания
+    \begin{wrapfigure}{l}{0.5\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \tikzset{
+                hatch distance/.store in=\hatchdistance,
+                hatch distance=10pt,
+                hatch thickness/.store in=\hatchthickness,
+                hatch thickness=2pt
+            }
+            \makeatletter
+            \pgfdeclarepatternformonly[\hatchdistance,\hatchthickness]{flexible hatch}
+            {\pgfqpoint{0pt}{0pt}}
+            {\pgfqpoint{\hatchdistance}{\hatchdistance}}
+            {\pgfpoint{\hatchdistance-1pt}{\hatchdistance-1pt}}%
+            {
+                \pgfsetcolor{\tikz@pattern@color}
+                \pgfsetlinewidth{\hatchthickness}
+                \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+                \pgfpathlineto{\pgfqpoint{\hatchdistance}{\hatchdistance}}
+                \pgfusepath{stroke}
+            }
+            \makeatother
+            \begin{axis} [
+                axis x line=center,
+                axis y line=center,
+                xtick={0, 1,...,2},
+                ytick={0, 1,...,2},
+                xlabel={$x$},
+                ylabel={$y$},
+                xlabel style={below right},
+                ylabel style={above left},
+                xmin=-0.25,
+                xmax=2.5,
+                ymin=-0.25,
+                ymax=2.5
+            ]
+                \addplot[name path = line, domain=0:3, thick] { (abs(x-1)-x+1)/2 };
+                \addplot[name path = up, domain=0:3, smooth, thick] {3};
+                \addplot [pattern=fill_hatch, pattern color=black] fill between [of=up and line, soft clip={domain=-1:3}];
+                \addplot[smooth, thick] coordinates { (0, 1) (0, 3)};
+            \end{axis}
+        \end{tikzpicture}
+        
+        \caption*{Область $D$ в прямоугольной системе координат }
+    \end{wrapfigure}
+
+    \vspace{1.25cm}
+    Построим нашу область $D$. Очевидно, что она неограничена. Перейдем в полярные координаты:\\
+    
+    $\begin{cases}
+        x = r \cos \varphi \\
+        y = r \sin \varphi
+    \end{cases}$, где $\displaystyle r > 0, \ \varphi \in \left[ 0, \frac \pi 2 \right]$\\
+    
+    Вычислим якобиан $J$ этого отображения:
+        $$ J = \left| \begin{matrix}
+            x'_r & x'_{\varphi} \\
+            y'_r & y'_{\varphi}
+        \end{matrix} \right| =
+        \left| \begin{matrix}
+            \cos \varphi & -r \sin \varphi \\
+            \sin \varphi & r \cos \varphi
+        \end{matrix} \right| = r$$
+    \vspace{2cm}\WFclear
+    Якобиан $J$ этого отображения не равен нулю в области $D$, поэтому это отображение определяет биекцию (взаимно-однозначное соответствие) между всеми точками области $D$ и всеми точками его образа $\hat{D}$, поэтому можно сделать замену переменных в нашем интеграле:\\
+    
+    $$\iint \limits_D \frac{dxdy}{x^3+y^3} = \iint \limits_{ \hat{D}} \frac{|J|\cdot drd\varphi}{r^3(\cos^3 \varphi + \sin^3 \varphi)} = \iint \limits_{\hat{D}} \frac{drd\varphi}{r^2(\cos^3 \varphi + \sin^3 \varphi)} \eqno{(1)}$$
+    
+    Чтобы вычислить этот интеграл, нам необходимо определить границы области $\hat{D}$ по переменным $r$ и $\varphi$.\\
+    
+    Прямые линии $ x = 0$ и $y = 0$ соответствуют своим значениям $\varphi = \frac \pi 2$ и $\varphi = 0$.\\
+    
+    Так как фигура неограничена и правильная относительно переменной $r$, то можно сказать, что верхней границей интегрирования по $r$ будет $+\infty$. Определимся с нижней границей. Она соответствует прямой $x + y = 1$. Найдем ее выражение в полярных координатах. Так как $x = r \cos \varphi$ и $y = r \sin \varphi$, то
+        $$ r \cos \varphi + r \sin \varphi = 1 \ \Leftrightarrow \ r = \frac1{\cos \varphi + \sin \varphi} $$
+    
+    Это выражение для $r$ как раз и будет нижней границей интегрирования. Подставим найденные выражения в интеграл (1):
+        $$\iint \limits_{\hat{D}} \frac{drd\varphi}{r^2(\cos^3 \varphi + \sin^3 \varphi)} = 
+            \int \limits_{0}^{\frac \pi 2} d \varphi \int \limits_{\frac1{\cos \varphi + \sin \varphi}}^{+\infty} \frac{dr}{r^2(\cos^3 \varphi + \sin^3 \varphi)} = 
+            \int \limits_{0}^{\frac \pi 2} \frac{d \varphi}{\cos^3 \varphi + \sin^3 \varphi} \int \limits_{\frac1{\cos \varphi + \sin \varphi}}^{+\infty} \frac{dr}{r^2} \eqno{(2)}$$
+            
+    Внутренний интеграл представляет собой несобственный интеграл $1^ \text{\underline{го}}$ рода. Вычислим его отдельно:
+        $$\int \limits_{\frac1{\cos \varphi + \sin \varphi}}^{+\infty} \frac{dr}{r^2} = \eval{-\frac1r}_{\frac1{\cos \varphi + \sin \varphi}}^{+\infty} = -0 + (\cos \varphi + \sin \varphi) = \cos \varphi + \sin \varphi$$
+        
+    При подстановке верхнего предела в выражение первообразной мы получили ноль, потому что по $ \lim \limits_{r\rightarrow+\infty} \lr{- \frac1r} = 0$.
+    Подставим получившееся выражение в интеграл $(2)$:
+        $$\int \limits_{0}^{\frac \pi 2} \frac{(\cos \varphi + \sin \varphi)d \varphi}{\cos^3 \varphi + \sin^3 \varphi} \stackrel{(*)}{=} \int \limits_{0}^{\frac \pi 2} \frac{d \varphi}{1 -\frac12 \sin 2\varphi} = \left[ \begin{matrix}
+            \theta = 2\varphi & \varphi \rightarrow \frac \pi 2 \Rightarrow \theta \rightarrow \pi \\
+            d \varphi = \frac12 d \theta & \varphi \rightarrow 0 \Rightarrow \theta \rightarrow 0
+        \end{matrix}
+        \right] = \int \limits_{0}^{\pi} \frac{d \theta}{2 - \sin \theta} \eqno{(3)}$$
+    
+    Равенство $(*)$ справедливо в силу того, что мы знаменатель разложили на множители по формуле суммы кубов.\\
+    
+    Для того, чтобы решить крайний правый интеграл $(3)$, мы используем универсальную тригонометрическую замену, где за $t$ обозначим $\tan{\frac \theta 2}$, при этом известно, что в таких обозначениях верны равенства $\sin \theta = \frac{2t}{1 + t^2}$ и $d\theta = \frac{2dt}{1 + t^2}$. Так же определим границы интегрирования: $\theta \rightarrow \pi \ \Rightarrow \ t \rightarrow +\infty$, $\theta \rightarrow 0 \ \Rightarrow \ t \rightarrow 0$.
+    \begin{equation*}
+        \begin{split}
+            &\int \limits_{0}^{\pi} \frac{d \theta}{2 - \sin \theta} = \int \limits_{0}^{+\infty} \frac{\frac{2dt}{1 + t^2}}{2 - \frac{2t}{1 + t^2}}
+            = \int \limits_{0}^{+\infty} \frac{dt}{1-t+t^2}
+            = \int \limits_{0}^{+\infty} \frac{dt}{\lr{t - \frac12}^2+ \frac34}
+            = \eval{\frac1{\sqrt{\frac34}}\arctan{\frac{t - \frac12}{\sqrt{\frac34}}}}_{0}^{+\infty}= \\
+                &= \eval{\frac{2}{\sqrt 3} \arctan{\frac{2 t - 1}{\sqrt 3}}}_{0}^{+\infty} =
+                \frac2{\sqrt 3} \lr{\frac \pi 2 + \arctan{\frac1{\sqrt 3}}} = \frac{4 \pi}{3 \sqrt 3}
+        \end{split}
+    \end{equation*}    
+}{ $\frac{4 \pi}{3 \sqrt 3}$ }\newpage
+
+\task {
+    Вычислить определенный интеграл: $\hspace{4mm} \displaystyle \int \limits_0^1 \arcsin{x} \arccos{x} \ dx$
+} {
+    Заметим, что $\arccos x = \frac \pi 2 - \arcsin x$ и заменим переменные: $\arcsin x = t  \ \Rightarrow \ x= \sin t $. Выразим дифференциал: $\displaystyle dt = \frac {dx} {\sqrt{1-x^2}} \ \Rightarrow \ dx = \cos t \  dt$. Вычислим новые границы интегрирования: $\displaystyle x = 0 \ \Rightarrow \ t = 0,\quad x = 1 \ \Rightarrow \ t = \frac \pi 2$.
+    
+    $$\int \limits_0^1 \arcsin{x} \arccos{x} \ dx = \int \limits_0^{\frac \pi 2} t\lr{\frac \pi 2 - t}\cos t\;dt = \int \limits_0^{\frac \pi 2} \lr{\frac {\pi t} 2 - t^2}\cos t\;dt$$
+    
+    Правый интеграл возьмем по частям и окончательно получим:
+    \begin{align*}
+        & \int \limits_0^{\frac \pi 2} \lr{\frac {\pi t} 2 - t^2}\cos t\;dt = \left[ \begin{matrix}
+            & u & dv \\
+            + & \frac {\pi t} 2 - t^2 & \cos t \\
+            - & \frac {\pi} 2 - 2t & \sin t \\
+            + & -2 & -\cos t \\
+            - & 0 & -\sin t \\
+        \end{matrix} \right] =
+        \eval{\lr{\frac {\pi t} 2 - t^2}\cdot \sin t - \lr{\frac {\pi} 2 - 2t} \cdot \lr{-\cos t} + \lr{-2} \cdot \lr{-\sin t}}_{0}^{\frac \pi 2} = \\[2mm]
+        &= \lr{0 \cdot 1 - \frac \pi 2 \cdot 0 + 2 \cdot 1} - \lr{0 \cdot 0 + \frac \pi 2 \cdot 1 + 2 \cdot 0} = 2 - \frac \pi 2
+    \end{align*}
+}{ $2 - \frac \pi 2$ }\newpage
+
+\task {
+    Решить задачу Коши: $\ \ (y')^2+(y'-y)e^x=y^2,\quad y(0)=-\frac12$
+} {
+    Перенесем $y^2$ в левую часть уравнения. Раскроем скобки и перегруппируем: $$ (y') 2 + exy'-y (ex + y) = 0$$
+    
+    Заметим, что полученное уравнение является квадратным отностительно $y'$. Разложим выражение слева на множители:
+        $$ (y'+e^x+y)(y'-y) = 0$$
+    
+    Таким образом, уравнение распадается на совокупность двух ДУ:
+        $$\left[ \begin{gathered}
+            y'+e^x+y = 0  \\
+            y'-y = 0 \hfill
+        \end{gathered} \right.
+        \quad  \Leftrightarrow \quad
+        \left[ \begin{gathered}
+            y'+y = -e^x \qquad(1)  \\
+            y'-y = 0\ \ \ \ \qquad(2) \hfill
+        \end{gathered} \right.$$
+    
+    ДУ $(1)$ представляет собой ЛНДУ $1^{\underline{\text{го}}}$ порядка с правой частью вида $P_n(x)e^{kx}$. Решим его:
+    \begin{align*}
+        & \lambda+1 = 0 \  \Rightarrow \ \lambda = -1 \ \text{ --   решение характеристического уравнения}\\
+        & y = C_1 e^{-x} + Ae^x, \ \ \text{где $Ae^x$ -- частное решение, соответствующее правой части ЛНДУ} \\[2mm]
+        & \lr{Ae^x}'+Ae^x=-e^x \ \Rightarrow \ A = -\frac12 \\[2mm]
+        & y = C_1 e^{-x} -\frac12 e^x \ \text{ -- общее решение ДУ $(1)$}
+    \end{align*}
+    
+    Решение ДУ $(2)$ не представляется сложным, поэтому запишем сразу его общее решение: ${y = C_2e^x}$\\
+    
+    Подставим $y(0)=-\frac12$. Имеем:
+        $$\left[ \begin{gathered}
+            y = C_1 e^{-x} -\frac12 e^x  \\
+            y = C_2e^x \hfill
+        \end{gathered} \right.
+        \quad \Rightarrow \quad
+        \left[ \begin{gathered}
+            -\frac12 = C_1 -\frac12  \\
+            -\frac12 = C_2 \hfill
+        \end{gathered} \right.
+        \quad \Leftrightarrow \quad
+        \left[ \begin{gathered}
+            C_1 = 0  \\
+            C_2 = -\frac12 \hfill
+        \end{gathered} \right.
+        \quad \Rightarrow \quad y = -\frac12 e^x$$
+    
+    Тогда решением нашей задачи будет единственная функция $y=-\frac12 e^x$.
+}{ $y=-\frac12 e^x$ }\newpage
+
+\task {
+    Решить дифференциальное уравнение: $y'+y''+y'''+...=x, \quad y(0)=0$
+} {
+    Имеем наше уравнение. Продифференцируем его:
+    \begin{align*}
+        & y'+y''+y'''+...=x  \\
+        & y''+y'''+y^{(4)}+...=1
+    \end{align*}
+    
+    Вычтем из первого уравнения второе:
+    \begin{align*}
+        & y'+(y''-y'')+(y'''-y''')+...=x - 1  \\
+        & y' = x-1
+    \end{align*}
+    
+    Решим последнее уравнение:
+        $$y' = x-1 \ \Leftrightarrow \ y =\int (x-1)dx = \frac{x^2}2-x+C$$
+    
+    Подставим начальное условие $y(0)=0$:
+        $$0 = \frac{0^2}2 - 0 + C \ \Leftrightarrow \ C = 0$$
+    
+    Итого, решением исходного уравнения будет функция $y= \frac{x^2}2-x$.
+}{ $y= \frac{x^2}2-x$ }\newpage
+
+\task {
+    Исследовать сходимость ряда: $\displaystyle \quad \sum_{n=1}^{\infty} \frac{1! + 2!+ 3!+\ldots+n!}{(2n)!}$
+} {
+    Обозначим изначальный ряд как $(1)$.\\
+    
+    Оценим общий член ряда, учитывая что  $k! \leqslant n!\hspace{4mm} \lr{k=\overline{1,n}}$:
+        $$\frac{1! + 2!+ 3!+\ldots+n!}{(2n)!} \leqslant \frac{n! + n!+ n!+\ldots+n!}{(2n)!} = \frac{n \cdot n!}{(2n)!}$$
+        
+    Тогда исходный ряд меньше ряда $(2)$: $\displaystyle \sum_{n=1}^{\infty} \frac{n \cdot n!}{(2n)!}$.\\
+    
+    Исходный ряд будет сходится по признаку сравнения, если мы докажем, что ряд $(2)$ сходится. Применим ко второму ряду признак д'Аламбера:
+        $$\lim {\frac{a_{n+1}}{a_n}} = \lim \frac{(n+1) \cdot (n+1)!}{(2n+2)!} \cdot \frac{(2n)!}{n \cdot n!} = \lim \frac{(n+1)^2}{n(2n+1)(2n+2)} = \lim \frac{n^2}{4n^3} = 0 < 1 \ \Rightarrow \ \text{ряд $(2)$ сходится.}$$
+    
+    Так как ряд $(2)$ сходится и $(1) \leqslant (2)$, то по признаку сравнения ряд $(1)$ сходится.
+}{ сходится. }\newpage
+
+\task {
+    Вычислить: $\displaystyle \quad \sqrt[3]{3} \cdot \sqrt[9]{9} \cdot \sqrt[27]{27} \cdot \sqrt[81]{81} \cdot \ldots$
+} {
+    Перепишем наше бесконечное произведение в свернутом виде:
+        $$\sqrt[3]{3} \cdot \sqrt[9]{9} \cdot \sqrt[27]{27} \cdot \sqrt[81]{81} \cdot \ldots = \prod_{n=1}^{\infty} \lr{3^n}^{\frac1{3^n}}$$
+    
+    Упростим наше произведение, пользуясь правилами степеней:
+        $$\prod_{n=1}^{\infty} \lr{3^n}^{\frac1{3^n}} = \prod_{n=1}^{\infty} 3^{\frac n{3^n}} = 3^{\ \displaystyle \sum_{n=1}^{\infty} \frac n{3^n} } = 3 ^ S, \quad \text{где $S = \sum_{n=1}^{\infty} \frac n{3^n}$}$$
+    
+    Необходимо вычислить S. Введем новую функцию:
+        $$f(x) = \sum_{n=1}^{\infty}nx^n \eqno{(1)}$$
+    
+    Нужно определиться при каких $x$ ряд $(1)$ сходится. Применим признак д'Аламбера для сходимости ряда:
+        $$\lim \left| \frac{a_{n+1}x^{n+1}}{a_nx^n}\right| = \lim \frac{n+1}{n}\cdot |x|=|x|<1 \ \Leftrightarrow \ -1 < x < 1$$
+    
+    Таким образом, ряд cходится, если $-1 < x < 1$.\\[2mm]
+    
+    Число $\frac13$ лежит в области сходимости этого ряда. Тогда, $S = f\lr{\frac13}$. Найдем замкнутое выражение для функции $f(x)$. Для этого рассмотрим производную другого ряда:
+        $$\frac x{1-x} = \sum_{n=1}^{\infty} x^n$$
+        $$\lr{\frac x{1-x}}' = \sum_{n=1}^{\infty} nx^{n-1} = \frac1x \sum_{n=1}^{\infty} nx^n$$
+    
+    Отсюда видно, чему равняется ряд $(1)$:
+        $$f(x) = x \cdot \lr{\frac x{1-x}}' = x\cdot \frac{1\cdot(1-x)-x\cdot(-1)}{(1-x)^2} = \frac{x}{(1-x)^2}$$
+    
+    Тогда мы можем вычислить $S$:
+        $$S = f\lr{\frac13} = \frac{\frac13}{\lr{1-\frac13}^2}=\frac34$$
+    
+    Окончательно можем сказать, что
+        $$\sqrt[3]{3} \cdot \sqrt[9]{9} \cdot \sqrt[27]{27} \cdot \sqrt[81]{81} \cdot \ldots = 3^{\frac34}=\sqrt[4]{27}$$
+}{ $\sqrt[4]{27}$ }\newpage
+
+\task {
+    Решить уравнение: $\quad \displaystyle \sum_{n=0}^{\infty} (-1)^{n+1}nx^{n+1}=\frac1{4084441}$
+} {
+    Рассмотрим ряд $(1)\colon$ $\displaystyle \sum_{n=1}^{\infty}nx^n$. Найдем его область сходимости. Воспользуемся радикальным признаком Коши:
+    $$\lim_{n \to \infty} \sqrt[n]{\ \abs{u_n(x)}} = \lim_{n \to \infty} \sqrt[n]{\ \abs{nx^n}} = \abs{x} \cdot \lim_{n \to \infty} n^{\frac 1n} = |x| \cdot 1 < 1 \;\Leftrightarrow\;-1<x<1$$
+
+    Преобразуем ряд $(1)$, и заметим, что он сводится к производной обычного геометрического ряда:
+    $$\sum_{n=1}^{\infty}nx^n = x\sum_{n=1}^{\infty}nx^{n-1}=x \cdot \frac{d}{dx}\lr{\sum_{n=1}^{\infty}x^n}=x\cdot\frac{d}{dx}\lr{-1+\frac1{1-x}}=\frac{x}{(1-x)^2}$$
+
+    Заметим, что исходный ряд получается из ряда $(1)$ заменой $x \mapsto -x$:
+    $$\sum_{n=0}^{\infty}(-1)^{n+1}nx^{n+1}=(-x)\cdot\sum_{n=0}^{\infty}n(-x)^n=(-x)\cdot\frac{-x}{(1+x)^2}=\frac{x^2}{(1+x)^2}$$
+
+    Этот ряд сходится в той же области, что и ряд $(1)$.
+
+    Остается решить уравнение
+    $$\frac{x^2}{1+x^2}=\frac1{4084441}$$
+
+    Заметим, что $4084441=2021^2$, и возьмем квадратный корень из обоих частей уравнения. Тогда наше уравнение легко преобразуется:
+    \begin{align*}
+        \frac{x^2}{(1+x)^2} = \frac1{2021^2} \; &\Leftrightarrow \; \sqrt{\frac{x^2}{(1+x)^2}} = \sqrt{\frac1{2021^2}}\\
+        \abs{\frac{x}{1+x}} = \frac1{2021} \;  &\Leftrightarrow \; \frac{-1+1+x}{1+x} = \pm\frac1{2021}\\
+        1-\frac1{1+x} = \pm\frac1{2021} \;  &\Leftrightarrow \;
+        \frac1{1+x} = \frac{2021\pm1}{2021}\\
+    \end{align*}
+    $$\left[ \begin{gathered}
+        1+x=\frac{2021}{2021+1}\\
+        1+x=\frac{2021}{2021-1}\hfill
+    \end{gathered} \right.
+    \;\Leftrightarrow \;
+    \left[ \begin{gathered}
+        x=\frac{2021-2022}{2022}\\
+        x=\frac{2021-2020}{2020}\hfill
+    \end{gathered} \right.
+    \;\Leftrightarrow \;
+    \left[ \begin{gathered}
+        x=\frac{-1}{2022}\\
+        x=\frac{1}{2020}\hfill
+    \end{gathered} \right.
+    $$\\[4mm]
+    
+    Нетрудно проверить, что оба корня лежат в области сходимости ряда: $-1 <x <1$.
+}{ $\frac{-1}{2022};\;\frac{1}{2020}$ }\newpage
+
+\task {
+    Вычислить двойной интеграл $\displaystyle \iint\limits_{D}\abs{\cos{(x+y)}}dS$, где $D\colon\;  0 \leqslant x+y\leqslant \pi \; \land\; xy \geqslant 0$
+} {\; % для правильного выравнивания
+    \begin{wrapfigure}{l}{0.5\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \tikzset{
+                hatch distance/.store in=\hatchdistance,
+                hatch distance=10pt,
+                hatch thickness/.store in=\hatchthickness,
+                hatch thickness=2pt
+            }
+            \makeatletter
+            \pgfdeclarepatternformonly[\hatchdistance,\hatchthickness]{flexible hatch}
+            {\pgfqpoint{0pt}{0pt}}
+            {\pgfqpoint{\hatchdistance}{\hatchdistance}}
+            {\pgfpoint{\hatchdistance-1pt}{\hatchdistance-1pt}}%
+            {
+                \pgfsetcolor{\tikz@pattern@color}
+                \pgfsetlinewidth{\hatchthickness}
+                \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+                \pgfpathlineto{\pgfqpoint{\hatchdistance}{\hatchdistance}}
+                \pgfusepath{stroke}
+            }
+            \makeatother
+            \begin{axis} [
+                axis equal,
+                axis x line=center,
+                axis y line=center,
+                xlabel={$x$},
+                ylabel={$y$},
+                xtick={pi/2, pi},
+                ytick={ pi/2, pi},
+                xticklabels={$\frac{\pi}2$, $\pi$},
+                yticklabels={$\frac{\pi}2$, $\pi$},
+                xlabel style={below right},
+                ylabel style={above left},
+                xmin=-0.25,
+                xmax=3.5,
+                ymin=-0.25,
+                ymax=3.5
+            ]
+                \addplot[name path = line, domain=0:pi, thick] { pi-x };
+                \addplot[name path = down, domain=0:pi, smooth, thick] {0};
+                \addplot [name path = straight, domain=0:(pi/2), thick] {x};
+                \addplot [name path = sub, domain=0:(pi/2), thick] {pi/2-x};
+                \addplot [name path = D1up, domain=0:(pi/2), thick] {pi/4 - abs(x - pi/4)};
+                \addplot [name path = D2up, domain=pi/4:pi, thick] {pi/2 - abs(x - pi/2)};
+                \addplot [name path = D2down, domain=pi/4:pi, thick] {(abs(x - pi/2) - x + pi/2)/2};
+                \addplot [pattern=fill_hatch, pattern color=gray] fill between [of=down and D1up, soft clip={domain=-1:pi}];
+                \addplot [pattern=fill_hatch, pattern color=gray] fill between [of=D2down and D2up, soft clip={domain=-1:pi}];
+                \addplot[smooth, thick] coordinates { (0, 0) (0, pi)};
+
+                \node at (axis cs: pi/4, pi/10) {$D_1$};
+                \node at (axis cs: 1.8, 0.6) {$D_2$};
+
+                \node at (axis cs: 1.8, 2) {$D_\text{ниж}$};
+                \draw [->, thick, black] (axis cs: 1.8, 1.8) to[bend left=30] (axis cs: pi/2, 1.2);
+                
+                \node at (axis cs: 1.15, 3) {$D$};
+                \draw [->, thick, black] (axis cs: 1, 3) to[bend right=50] (axis cs: 0.4, 1.5);
+            \end{axis}
+        \end{tikzpicture}
+        
+        \caption*{Области $D,\;D_\text{ниж},\;D_1,\;D_2$ в прямоугольной\\ системе координат }
+    \end{wrapfigure}
+
+    Наша область $D$, лежащая в I четверти координатной плоскости, представляет собой прямоугольный треугольник.
+    
+    Заметим, что наша подынтегральная функция не изменяет своего значения, при перестановке чисел
+    ${x, y\colon(x,y)\mapsto(y,x)}$. Значит, наша функция симметрична относительно прямой $y=x$.
+    К тому же, наша область $D$ симметрична относительно этой прямой. Из этого следует, что наш двойной интеграл может быть упрощён до двойного интеграла по одной из половин области $D$. Обозначим правую нижнюю часть области $D$ как $D_\text{ниж}$
+    
+    \vspace{2mm}
+    Попробуем разбить эту область на подобласти $D_1, D_2\colon D_1 \cup D_2 =D_\text{ниж}$. Проанализируем знак функции под модулем, чтобы понять, в какой области нужно раскрыть модуль с $'+'$ или $'-'$
+
+    aaaaaaa
+
+    aaaaaaa
+    
+    aaaaaaa
+
+    aaaaaaa
+
+    aaaaaaa
+
+    aaaaaaa
+    
+    aaaaaaa
+
+    aaaaaaa
+
+    aaaaaaa
+
+    aaaaaaa
+    
+    aaaaaaa
+
+    aaaaaaa
+
+    aaaaaaa
+
+    aaaaaaa
+    
+    aaaaaaa
+
+    aaaaaaa
+
+    aaaaaaa
+
+    aaaaaaa
+    
+    aaaaaaa
+
+    Раскроем модуль под интегралом $k \in \mathbb Z$:       
+    \begin{equation*}\begin{split}
+        \abs{\cos{(x+y)}} &= \begin{cases}
+            \cos{(x+y)}, &\cos{(x+y)} \geqslant 0 \\
+            -\cos{(x+y)}, &\cos{(x+y)} < 0 \\
+        \end{cases} =\\
+         &= \begin{cases}
+            \cos{(x+y)}, &{ -\frac{\pi}2+2\pi k\leqslant x+y \leqslant \frac{\pi}2+2\pi k}\\
+            -\cos{(x+y)}, &{ \frac{\pi}2+2\pi k < x+y < \frac{3\pi}2+2\pi k}\\
+        \end{cases}
+    \end{split}\end{equation*}
+    \WFclear
+}{ $\pi$ }\newpage
+
+\task{ 
+    Найти максимальное значение действительного параметра $a$, зависящее от натурального числа $n$, что для линейного оператора $\mathcal F\colon \mathcal L^n \to \mathcal L^n$, заданного матрицей $\mathcal A_{\mathcal F}$ в тривиальном базисе этого пространства и для любого вектора $\forall\mathbf{x} \in \mathcal L^n(\mathbb R)$, будет верно неравенство:
+    %из $n$-мерного линейного пространства $\mathcal L^n$ над полем действительных чисел $\mathbb R$
+    $$ \mathbf x ^T \cdot \mathbf x \geqslant \mathbf x^T \cdot \mathcal F(a\cdot\mathbf x)$$
+    
+    где $\mathcal L^n(\mathbb R)$ -- $n$-мерное линейное пространство, 
+    %$\mathbf x ^T$ -- транспонированный вектор $\mathbf x$
+    и $\mathcal A_{\mathcal F} = \left\{\delta_{i+1,\;j}\right\}$,\\
+    
+    %где $a \mod b$ -- остаток числа $a$ при делении на $b$,
+    и $\delta_{i,\,j}=
+    \begin{cases}
+        1, &\text{если }i=j\\
+        0, &\text{иначе}
+    \end{cases}$
+   % \begin{pmatrix}
+   % 0 & 0 & 0 &  \ldots & 0 & 1\\
+   % 1 & 0 & 0 &  \ldots & 0 & 0\\
+   % 0 & 1 & 0 & \ldots & 0 & 0\\
+   % 0 & 0 & 1 & \ldots & 0 & 0\\
+   % \vdots & \vdots & \vdots & \ddots & \vdots & \vdots\\
+   % 0 & 0 & 0 & \ldots & 1 & 0\\
+    
+   % \end{pmatrix}_{n\times n}$
+}{}{ $\frac1{\cos{\frac{\pi}{(n+1)}}}$ }\newpage
