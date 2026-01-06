@@ -1,0 +1,24 @@
+\newcommand{\newtaskref}[1] {
+	\stepcounter{task#1}
+	\hyperlink{category:#1}
+	{%
+	\ifnum \pdfstrcmp{#1}{text} = 0%
+Текстовые задачи%
+\else\ifnum \pdfstrcmp{#1}{parameters} = 0%
+Задачи с параметрами%
+\else\ifnum \pdfstrcmp{#1}{series} = 0%
+Ряды, произведения%
+\else\ifnum \pdfstrcmp{#1}{diffeqs} = 0%
+Дифференциальные уравнения%
+\else\ifnum \pdfstrcmp{#1}{integrals} = 0%
+Интегралы%
+\else\ifnum \pdfstrcmp{#1}{probability} = 0%
+Задачи на вероятность%
+\else\ifnum \pdfstrcmp{#1}{linal} = 0%
+Задачи линейной алгебры%
+\else\ifnum \pdfstrcmp{#1}{complex} = 0%
+Комплексные числа, ТФКП%
+\else ХУИТА \fi\fi\fi\fi\fi\fi\fi\fi
+	}%
+	\hypertarget{#1:\arabic{task#1}}{}
+}

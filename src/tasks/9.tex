@@ -1,0 +1,24 @@
+\task {
+    \newtaskref{integrals}
+} {
+    Вычислить определенный интеграл: $\hspace{4mm} \displaystyle \int \limits_0^1 \arcsin{x} \arccos{x} \ dx$
+} {
+    Заметим, что $\arccos x = \frac \pi 2 - \arcsin x$ и заменим переменные: $\arcsin x = t  \ \Rightarrow \ x= \sin t $. Выразим дифференциал: $\displaystyle dt = \frac {dx} {\sqrt{1-x^2}} \ \Rightarrow \ dx = \cos t \  dt$. Вычислим новые границы интегрирования: $\displaystyle x = 0 \ \Rightarrow \ t = 0,\quad x = 1 \ \Rightarrow \ t = \frac \pi 2$.
+    
+    $$\int \limits_0^1 \arcsin{x} \arccos{x} \ dx = \int \limits_0^{\frac \pi 2} t\lr{\frac \pi 2 - t}\cos t\;dt = \int \limits_0^{\frac \pi 2} \lr{\frac {\pi t} 2 - t^2}\cos t\;dt$$
+    
+    Правый интеграл возьмем по частям и окончательно получим:
+    \begin{align*}
+        & \int \limits_0^{\frac \pi 2} \lr{\frac {\pi t} 2 - t^2}\cos t\;dt = \left[ \begin{matrix}
+            & u & dv \\
+            + & \frac {\pi t} 2 - t^2 & \cos t \\
+            - & \frac {\pi} 2 - 2t & \sin t \\
+            + & -2 & -\cos t \\
+            - & 0 & -\sin t \\
+        \end{matrix} \right] =
+        \eval{\lr{\frac {\pi t} 2 - t^2}\cdot \sin t - \lr{\frac {\pi} 2 - 2t} \cdot \lr{-\cos t} + \lr{-2} \cdot \lr{-\sin t}}_{0}^{\frac \pi 2} = \\[2mm]
+        &= \lr{0 \cdot 1 - \frac \pi 2 \cdot 0 + 2 \cdot 1} - \lr{0 \cdot 0 + \frac \pi 2 \cdot 1 + 2 \cdot 0} = 2 - \frac \pi 2
+    \end{align*}
+} {
+    $2 - \frac \pi 2$
+}

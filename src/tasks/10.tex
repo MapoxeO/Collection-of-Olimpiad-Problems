@@ -1,0 +1,52 @@
+\task {
+    \newtaskref{diffeqs}
+} {
+    Решить задачу Коши: $\ \ (y')^2+(y'-y)e^x=y^2,\quad y(0)=-\frac12$
+} {
+    Перенесем $y^2$ в левую часть уравнения. Раскроем скобки и перегруппируем: $$ (y') 2 + exy'-y (ex + y) = 0$$
+    
+    Заметим, что полученное уравнение является квадратным отностительно $y'$. Разложим выражение слева на множители:
+        $$ (y'+e^x+y)(y'-y) = 0$$
+    
+    Таким образом, уравнение распадается на совокупность двух ДУ:
+        $$\left[ \begin{gathered}
+            y'+e^x+y = 0  \\
+            y'-y = 0 \hfill
+        \end{gathered} \right.
+        \quad  \Leftrightarrow \quad
+        \left[ \begin{gathered}
+            y'+y = -e^x \qquad(1)  \\
+            y'-y = 0\ \ \ \ \qquad(2) \hfill
+        \end{gathered} \right.$$
+    
+    ДУ $(1)$ представляет собой ЛНДУ $1^{\underline{\text{го}}}$ порядка с правой частью вида $P_n(x)e^{kx}$. Решим его:
+    \begin{align*}
+        & \lambda+1 = 0 \  \Rightarrow \ \lambda = -1 \ \text{ --   решение характеристического уравнения}\\
+        & y = C_1 e^{-x} + Ae^x, \ \ \text{где $Ae^x$ -- частное решение, соответствующее правой части ЛНДУ} \\[2mm]
+        & \lr{Ae^x}'+Ae^x=-e^x \ \Rightarrow \ A = -\frac12 \\[2mm]
+        & y = C_1 e^{-x} -\frac12 e^x \ \text{ -- общее решение ДУ $(1)$}
+    \end{align*}
+    
+    Решение ДУ $(2)$ не представляется сложным, поэтому запишем сразу его общее решение: ${y = C_2e^x}$\\
+    
+    Подставим $y(0)=-\frac12$. Имеем:
+        $$\left[ \begin{gathered}
+            y = C_1 e^{-x} -\frac12 e^x  \\
+            y = C_2e^x \hfill
+        \end{gathered} \right.
+        \quad \Rightarrow \quad
+        \left[ \begin{gathered}
+            -\frac12 = C_1 -\frac12  \\
+            -\frac12 = C_2 \hfill
+        \end{gathered} \right.
+        \quad \Leftrightarrow \quad
+        \left[ \begin{gathered}
+            C_1 = 0  \\
+            C_2 = -\frac12 \hfill
+        \end{gathered} \right.
+        \quad \Rightarrow \quad y = -\frac12 e^x$$
+    
+    Тогда решением нашей задачи будет единственная функция $y=-\frac12 e^x$.
+} {
+    $y=-\frac12 e^x$
+}

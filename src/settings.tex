@@ -1,0 +1,44 @@
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\href{https://vk.com/mapoxeo}{MapoxeO}}
+\fancyfoot[R]{\thepage} 
+\fancyhead[L]{Решение олимпиадных и нестандартных задач по математике}
+\setcounter{page}{1}
+\headsep=10mm 
+
+\usetikzlibrary{patterns}
+\usepgfplotslibrary{fillbetween}
+
+\setlength{\footskip}{12.0pt}
+\setlength{\headheight}{12.0pt}
+
+\renewcommand{\theequation}{\arabic{equation}}
+
+% Настройка стиля оглавления
+\renewcommand{\cftsecfont}{\normalfont\bfseries} % Жирный шрифт для разделов
+\renewcommand{\cftsubsecfont}{\normalfont\itshape} % Курсив для подразделов
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Точки между названием и номером страницы
+
+\pgfplotsset{compat=1.18}
+
+% Создаем пользовательский шаблон штриховки
+\pgfdeclarepatternformonly{fill_hatch}
+{\pgfqpoint{-1pt}{-1pt}} % Начальная точка
+{\pgfqpoint{4pt}{4pt}} % Размер шаблона
+{\pgfqpoint{4pt}{4pt}} % Смещение
+{
+	\pgfsetlinewidth{0.4pt} % Толщина линии
+	\pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+	\pgfpathlineto{\pgfqpoint{20pt}{20pt}}
+	\pgfusepath{stroke}
+}
+
+\newtaskcounter{counter}
+\newtaskcounter{iter}
+
+\newcounter{dummy} 			\setcounter{dummy}{0}
+\newcounter{ctheorem}		\setcounter{ctheorem}{0}
+\newcounter{clemma}			\setcounter{clemma}{0}
+\newcounter{ccorollary}		\setcounter{ccorollary}{0}
+
+\input{src/precompiled/settings.tex}

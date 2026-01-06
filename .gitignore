@@ -1,0 +1,5 @@
+# ignoring all dotted dirs
+.git/
+.idea/
+__compile/
+./*.pdf

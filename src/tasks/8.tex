@@ -1,0 +1,117 @@
+\task {
+    \newtaskref{integrals}
+} {
+    Вычислить $$ \iint \limits_D \frac{dxdy}{x^3+y^3},\quad \text{где }D \colon\
+    \begin{cases}
+        x + y \geqslant 1 \\
+        x \geqslant 0 \\
+        y \geqslant 0
+    \end{cases}$$
+} { \;\\% для правильного выравнивания
+    \begin{wrapfigure}{l}{0.5\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \tikzset{
+                hatch distance/.store in=\hatchdistance,
+                hatch distance=10pt,
+                hatch thickness/.store in=\hatchthickness,
+                hatch thickness=2pt
+            }
+            \makeatletter
+            \pgfdeclarepatternformonly[\hatchdistance,\hatchthickness]{flexible hatch}
+            {\pgfqpoint{0pt}{0pt}}
+            {\pgfqpoint{\hatchdistance}{\hatchdistance}}
+            {\pgfpoint{\hatchdistance-1pt}{\hatchdistance-1pt}}%
+            {
+                \pgfsetcolor{\tikz@pattern@color}
+                \pgfsetlinewidth{\hatchthickness}
+                \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+                \pgfpathlineto{\pgfqpoint{\hatchdistance}{\hatchdistance}}
+                \pgfusepath{stroke}
+            }
+            \makeatother
+            \begin{axis} [
+                axis x line=center,
+                axis y line=center,
+                xtick={0, 1,...,2},
+                ytick={0, 1,...,2},
+                xlabel={$x$},
+                ylabel={$y$},
+                xlabel style={below right},
+                ylabel style={above left},
+                xmin=-0.25,
+                xmax=2.5,
+                ymin=-0.25,
+                ymax=2.5
+            ]
+                \addplot[name path = line, domain=0:3, thick] { (abs(x-1)-x+1)/2 };
+                \addplot[name path = up, domain=0:3, smooth, thick] {3};
+                \addplot [pattern=fill_hatch, pattern color=black] fill between [of=up and line, soft clip={domain=-1:3}];
+                \addplot[smooth, thick] coordinates { (0, 1) (0, 3)};
+            \end{axis}
+        \end{tikzpicture}
+        
+        \caption*{Область $D$ в прямоугольной системе координат }
+    \end{wrapfigure}
+    
+    \vspace{1.25cm}
+    Построим нашу область $D$. Очевидно, что она неограничена. Перейдем в полярные координаты:\\
+    
+    $\begin{cases}
+        x = r \cos \varphi \\
+        y = r \sin \varphi
+    \end{cases}$, где $\displaystyle r > 0, \ \varphi \in \left[ 0, \frac \pi 2 \right]$\\
+    
+    Вычислим якобиан $J$ этого отображения:
+        $$ J = \left| \begin{matrix}
+            x'_r & x'_{\varphi} \\
+            y'_r & y'_{\varphi}
+        \end{matrix} \right| =
+        \left| \begin{matrix}
+            \cos \varphi & -r \sin \varphi \\
+            \sin \varphi & r \cos \varphi
+        \end{matrix} \right| = r$$
+    \vspace{2cm}\WFclear
+    Якобиан $J$ этого отображения не равен нулю в области $D$, поэтому это отображение определяет биекцию (взаимно-однозначное соответствие) между всеми точками области $D$ и всеми точками его образа $\hat{D}$, поэтому можно сделать замену переменных в нашем интеграле:\\
+    
+    $$\iint \limits_D \frac{dxdy}{x^3+y^3} = \iint \limits_{ \hat{D}} \frac{|J|\cdot drd\varphi}{r^3(\cos^3 \varphi + \sin^3 \varphi)} = \iint \limits_{\hat{D}} \frac{drd\varphi}{r^2(\cos^3 \varphi + \sin^3 \varphi)} \eqno{(1)}$$
+    
+    Чтобы вычислить этот интеграл, нам необходимо определить границы области $\hat{D}$ по переменным $r$ и $\varphi$.\\
+    
+    Прямые линии $ x = 0$ и $y = 0$ соответствуют своим значениям $\varphi = \frac \pi 2$ и $\varphi = 0$.\\
+    
+    Так как фигура неограничена и правильная относительно переменной $r$, то можно сказать, что верхней границей интегрирования по $r$ будет $+\infty$. Определимся с нижней границей. Она соответствует прямой $x + y = 1$. Найдем ее выражение в полярных координатах. Так как $x = r \cos \varphi$ и $y = r \sin \varphi$, то
+        $$ r \cos \varphi + r \sin \varphi = 1 \ \Leftrightarrow \ r = \frac1{\cos \varphi + \sin \varphi} $$
+    
+    Это выражение для $r$ как раз и будет нижней границей интегрирования. Подставим найденные выражения в интеграл (1):
+        $$\iint \limits_{\hat{D}} \frac{drd\varphi}{r^2(\cos^3 \varphi + \sin^3 \varphi)} = 
+            \int \limits_{0}^{\frac \pi 2} d \varphi \int \limits_{\frac1{\cos \varphi + \sin \varphi}}^{+\infty} \frac{dr}{r^2(\cos^3 \varphi + \sin^3 \varphi)} = 
+            \int \limits_{0}^{\frac \pi 2} \frac{d \varphi}{\cos^3 \varphi + \sin^3 \varphi} \int \limits_{\frac1{\cos \varphi + \sin \varphi}}^{+\infty} \frac{dr}{r^2} \eqno{(2)}$$
+            
+    Внутренний интеграл представляет собой несобственный интеграл $1^ \text{\underline{го}}$ рода. Вычислим его отдельно:
+        $$\int \limits_{\frac1{\cos \varphi + \sin \varphi}}^{+\infty} \frac{dr}{r^2} = \eval{-\frac1r}_{\frac1{\cos \varphi + \sin \varphi}}^{+\infty} = -0 + (\cos \varphi + \sin \varphi) = \cos \varphi + \sin \varphi$$
+        
+    При подстановке верхнего предела в выражение первообразной мы получили ноль, потому что по $ \lim \limits_{r\rightarrow+\infty} \lr{- \frac1r} = 0$.
+    Подставим получившееся выражение в интеграл $(2)$:
+        $$\int \limits_{0}^{\frac \pi 2} \frac{(\cos \varphi + \sin \varphi)d \varphi}{\cos^3 \varphi + \sin^3 \varphi} \stackrel{(*)}{=} \int \limits_{0}^{\frac \pi 2} \frac{d \varphi}{1 -\frac12 \sin 2\varphi} = \left[ \begin{matrix}
+            \theta = 2\varphi & \varphi \rightarrow \frac \pi 2 \Rightarrow \theta \rightarrow \pi \\
+            d \varphi = \frac12 d \theta & \varphi \rightarrow 0 \Rightarrow \theta \rightarrow 0
+        \end{matrix}
+        \right] = \int \limits_{0}^{\pi} \frac{d \theta}{2 - \sin \theta} \eqno{(3)}$$
+    
+    Равенство $(*)$ справедливо в силу того, что мы знаменатель разложили на множители по формуле суммы кубов.\\
+    
+    Для того, чтобы решить крайний правый интеграл $(3)$, мы используем универсальную тригонометрическую замену, где за $t$ обозначим $\tan{\frac \theta 2}$, при этом известно, что в таких обозначениях верны равенства $\sin \theta = \frac{2t}{1 + t^2}$ и $d\theta = \frac{2dt}{1 + t^2}$. Так же определим границы интегрирования: $\theta \rightarrow \pi \ \Rightarrow \ t \rightarrow +\infty$, $\theta \rightarrow 0 \ \Rightarrow \ t \rightarrow 0$.
+    \begin{equation*}
+        \begin{split}
+            &\int \limits_{0}^{\pi} \frac{d \theta}{2 - \sin \theta} = \int \limits_{0}^{+\infty} \frac{\frac{2dt}{1 + t^2}}{2 - \frac{2t}{1 + t^2}}
+            = \int \limits_{0}^{+\infty} \frac{dt}{1-t+t^2}
+            = \int \limits_{0}^{+\infty} \frac{dt}{\lr{t - \frac12}^2+ \frac34}
+            = \eval{\frac1{\sqrt{\frac34}}\arctan{\frac{t - \frac12}{\sqrt{\frac34}}}}_{0}^{+\infty}= \\
+                &= \eval{\frac{2}{\sqrt 3} \arctan{\frac{2 t - 1}{\sqrt 3}}}_{0}^{+\infty} =
+                \frac2{\sqrt 3} \lr{\frac \pi 2 + \arctan{\frac1{\sqrt 3}}} = \frac{4 \pi}{3 \sqrt 3}
+        \end{split}
+    \end{equation*}    
+} { 
+    $\frac{4 \pi}{3 \sqrt 3}$
+}

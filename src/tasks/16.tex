@@ -1,0 +1,86 @@
+\task {
+	\newtaskref{parameters} \newtaskref{linal}
+} { 
+	Найти максимальное значение действительного параметра $a$, зависящее от натурального числа $n$,
+	что для линейного оператора $\mathcal F\colon \mathcal L^n \to \mathcal L^n$,
+	заданного матрицей $\mathcal A_{\mathcal F}$ в тривиальном базисе этого пространства и для любого вектора $\forall\mathbf{x} \in \mathcal L^n(\mathbb R)$,
+	будет верно неравенство:
+	$$ \mathbf x ^T \cdot \mathbf x \geqslant \mathbf x^T \cdot \mathcal F(a\cdot\mathbf x)$$
+	
+	\par где $\mathcal L^n(\mathbb R)$ -- $n$-мерное линейное пространство, 
+	и $\mathcal A_{\mathcal F} = \left\{\delta_{i+1,\;j}\right\}$, 
+	и $\delta_{i,\,j}=
+	\begin{cases}
+		1, &\text{если }i=j\\
+		0, &\text{иначе}
+	\end{cases}$
+} {
+	Очевидно, что все матрицы в этом задании размера $n \times n$, где $n$ --- размерность линейного пространства.
+	\par
+	Преобразуем немного неравенство:
+	\begin{align*}
+		\mathbf x ^T \cdot \mathbf x - \mathbf x^T \cdot \mathcal F(a\cdot\mathbf x) \geqslant 0 \\
+		\mathbf x ^T \cdot E \cdot \mathbf x - \mathbf x^T \cdot a \mathcal A_F \cdot \mathbf x \geqslant 0 \\
+		Q(\mathbf x) = \mathbf x ^T \lr{E - a \mathcal A_F} \mathbf x \geqslant 0
+	\end{align*}
+	Последнее неравенство четко показывает, что мы имеем дело с квадратичной формой, причем ее матрицей не будет матрица $E - a \mathcal A_F$,
+	а будет матрица $\mathcal A_Q$, определяемая как:
+	
+	\begin{equation*}
+		\begin{split}
+			\mathcal A _Q &= \frac{\lr{E - a\mathcal A_F} + \lr{E - a\mathcal A_F}^T}2 = E - \frac a2 \cdot (\mathcal A_F + \mathcal A_F^T) = \left[ B = \mathcal A_F + \mathcal A_F^T \right] = \\
+			&= E - \frac a2 \cdot B = \begin{bmatrix}
+				1               & -\frac{a}{2}  & 0             & \ldots & 0        \\
+				-\frac{a}{2}    & 1             & -\frac{a}{2}  & \ldots & 0        \\
+				0               & -\frac{a}{2}  & 1             & \ldots & 0   		\\
+				\vdots          & \vdots        & \vdots        & \ddots & \vdots   \\
+				0               & 0 			& 0             & \ldots & 1   		\\
+			\end{bmatrix}
+		\end{split}
+	\end{equation*}
+	
+
+	\par где $E = \left\{\delta_{i,\,j}\right\}$ --- единичная матрица, и $B = \left\{ \delta_{\,\abs{i-j},\,1}\right\} =
+	\begin{bmatrix}
+		0 & 1 & 0 & \ldots & 0 & 0 \\
+		1 & 0 & 1 & \ldots & 0 & 0 \\
+		0 & 1 & 0 & \ldots & 0 & 0 \\
+		\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+		0 & 0 & 0 & \ldots & 0 & 1 \\
+		0 & 0 & 0 & \ldots & 1 & 0 \\
+	\end{bmatrix}$
+	\par\vspace{8mm}
+	Так как нам требуется, чтобы квадратичная форма была неотрицательной: $Q(\mathbf x) \geqslant 0$, нам необходимо, чтобы матрица
+	этой квадратичной формы $\mathcal A_Q$ была \textbf{положительно полуопределенной}. Воспользуемся тем,
+	что матрица положительно полуопределена тогда и только тогда, когда все ее собственные значения неотрицательны.
+	Обозначим собственные числа матрицы $\mathcal A_Q$ как $\mu_k$, а собственные числа матрицы $B$ как $\lambda_k$, где $k=\overline{1,n}$.	
+	\par Так как матрицы $E, B$ \textbf{коммутируют}, то по \hyperlink{theorem:1}{\emph{Теореме 1}} получим, что
+	$$
+		\mu_k = 1 - \frac a2 \lambda_k \eqno{(1)}
+	$$
+	\par По \hyperlink{theorem:2}{\emph{Теореме 2}} собственные значения матрицы $B$ находятся как
+	$$
+		\lambda_k = 2\cos\lr{\frac{\pi k}{n + 1}},\quad k = \overline{1,n} \eqno{(2)}
+	$$
+	\par Подставим $(2)$ в $(1)$ и потребуем неотрицательности \textbf{всех} собственных значений:
+	$$
+		\mu_k = 1 - a\cos\lr{\frac{\pi k}{n + 1}} \geqslant 0,\quad \forall k = \overline{1,n} \eqno{(3)}
+	$$
+	\par Это неравенство должно выполнятся для всех $k$.
+	\par Заметим, что при $\frac{n + 1}2 \leqslant k \leqslant n$ косинус меньше или равен 0, а значит
+	$$
+		\mu_k \geqslant 1 - a \cdot 0 = 1 \geqslant 0
+	$$
+	\par Неравенство заведомо верное, т.е. все собственные числа $\mu_k$ под номерами $\frac{n + 1}2 \leqslant k \leqslant n$ неотрицательны.
+	\par Рассмотрим $1 \leqslant k < \frac{n + 1}2$. При таких условиях $\cos\lr{\frac{\pi k}{n + 1}} > 0$. Выразим $a$ из неравенства $(3)$:
+	$$
+		a \geqslant \frac{1}{\cos\lr{\frac{\pi k}{n + 1}}}
+	$$
+	\par И наконец заметим, что при наложенном нами условии на величину $k$ функция $f(k) = \frac{1}{\cos\lr{\frac{\pi k}{n + 1}}}$ возрастает, а значит
+	максимальное значение $a$, при котором верно это неравенство, соответствует минимальному числу $k$, то есть $k=1$:
+	$$
+		\max a = \frac 1{\cos\lr{\frac \pi {n + 1}}}
+	$$
+} {
+	$a = \frac1{\cos{\frac{\pi}{(n+1)}}}$
+}

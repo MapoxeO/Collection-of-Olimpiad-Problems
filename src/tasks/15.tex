@@ -1,0 +1,129 @@
+\task {
+    \newtaskref{integrals}
+} {
+    Вычислить двойной интеграл $\displaystyle \iint\limits_{D}\abs{\cos{(x+y)}}dS$, где $D\colon\;  0 \leqslant x+y\leqslant \pi \; \land\; xy \geqslant 0$
+} { \;\\% для правильного выравнивания
+    \begin{wrapfigure}{l}{0.5\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \tikzset{
+                hatch distance/.store in=\hatchdistance,
+                hatch distance=10pt,
+                hatch thickness/.store in=\hatchthickness,
+                hatch thickness=2pt
+            }
+            \makeatletter
+            \pgfdeclarepatternformonly[\hatchdistance,\hatchthickness]{flexible hatch}
+            {\pgfqpoint{0pt}{0pt}}
+            {\pgfqpoint{\hatchdistance}{\hatchdistance}}
+            {\pgfpoint{\hatchdistance-1pt}{\hatchdistance-1pt}}%
+            {
+                \pgfsetcolor{\tikz@pattern@color}
+                \pgfsetlinewidth{\hatchthickness}
+                \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+                \pgfpathlineto{\pgfqpoint{\hatchdistance}{\hatchdistance}}
+                \pgfusepath{stroke}
+            }
+            \makeatother
+            \begin{axis} [
+                axis equal,
+                axis x line=center,
+                axis y line=center,
+                xlabel={$x$},
+                ylabel={$y$},
+                xtick={pi},
+                ytick={pi},
+                xticklabels={$\pi$},
+                yticklabels={$\pi$},
+                xlabel style={below right},
+                ylabel style={above left},
+                xmin=-0.25,
+                xmax=3.5,
+                ymin=-0.25,
+                ymax=3.5
+            ]
+                \addplot[name path = line, domain=0:pi, thick] { pi-x };
+                \addplot[name path = down, domain=0:pi, smooth, thick] {0};
+                \addplot [pattern=fill_hatch, pattern color=gray] fill between [of=down and line, soft clip={domain=-1:pi}];
+                \addplot[smooth, thick] coordinates { (0, 0) (0, pi)};
+                
+                \node at (axis cs: 3, 1.5) {$D$};
+                \node at (axis cs: -0.1, -0.15) {$0$};
+                \draw [->, thick, black] (axis cs: 2.9, 1.52) to[bend right=50] (axis cs: 1.2, 1.2);
+            \end{axis}
+        \end{tikzpicture}
+        
+        \caption*{Область \(D\) в прямоугольной системе координат. }
+    \end{wrapfigure}
+
+    Наша область $D$, лежащая в I четверти координатной плоскости, представляет собой прямоугольный треугольник.
+
+    Введём замену координат
+    \begin{equation*}
+        \begin{cases}
+            x + y = u \\
+            y = v x
+        \end{cases}
+    \end{equation*}
+
+    Выражая \(x, y\) из этой системы, получим
+    \begin{equation*}
+        \begin{cases}
+            x = \frac{u}{1+v} \\
+            y = \frac{uv}{1+v}
+        \end{cases}
+    \end{equation*}
+
+    В таких координатах область \(D\) будет выражаться следующим образом:
+    \[
+        D^{uv} = \left\{(u,v) \in \mathbb{R}^2 \colon 0 \leqslant u \leqslant \pi \land v \geqslant 0\right\}
+    \]
+    
+    \vspace{4mm}
+
+    \WFclear
+
+    \par Для того, чтобы перейти к новым координатам в наших интегралах, необходимо вычислить Якобиан \(J\) преобразования координат:
+    \[
+        J = \frac{\partial\lr{x, y}}{\partial\lr{u, v}} =
+        \left|\begin{matrix}
+            x'_u & y'_u \\
+            x'_v & y'_v \\
+        \end{matrix}\right| = \frac{1}{\lr{1 + v}^3}
+        \left|\begin{matrix}
+            1 & v \\
+            -u & u \\
+        \end{matrix}\right| =
+        \frac{-u\lr{v+1}}{\lr{1 + v}^3} = \frac{-u}{\lr{1 + v}^2}
+    \]
+
+    Теперь можно\footnotemark[1] перейти к координатам \((u, v)\) в интеграле:
+    \[
+        \iint\limits_{D} \abs{\cos\lr{x+y}} dS = \iint\limits_{D^{uv}} \abs{\cos\lr{u}} \cdot |J|dudv = \iint\limits_{D^{uv}} \abs{\frac{-u\cos u}{\lr{1 + v}^2}} dudv = \left[u \geqslant 0\right] = \iint\limits_{D^{uv}} \frac{u \abs{\cos u}}{\lr{1 + v}^2} dudv
+    \]
+
+    \footnotetext{
+        Рассуждая более строго, достаточным условием перехода к новым координатам является \(\forall (u, v) \in D^{uv}~\Rightarrow J(u, v)~\neq~0\). В нашем же случае, при \(u = 0\), оно не соблюдается.
+        Для разрешения этой ситуации предлагается взять число \(\varepsilon > 0 \) и рассмотреть интеграл по области \(D_\varepsilon^{uv} = \left\{(u, v) \in \mathbb{R}^2 \colon \varepsilon \leqslant u \leqslant \pi \land v \geqslant 0\right\}\).
+        Затем вычислить предел интеграла при \(\varepsilon \to 0\).
+    }
+
+    Раскроем этот интеграл как повторный и решим его, не забывая про модуль при косинусе
+    \begin{align*}
+        &\iint\limits_{D^{uv}} \frac{u \abs{\cos u}}{\lr{1 + v}^2} dudv = \int\limits_{0}^{\pi} du \int\limits_{0}^{+\infty} \frac{u \abs{\cos u}}{\lr{1 + v}^2} dv = \int\limits_{0}^{\pi} u \abs{\cos u} du \cdot \int\limits_{0}^{+\infty} \frac{dv}{\lr{1 + v}^2} = \\
+        &= \lr{\int\limits_{0}^{\frac{\pi}2} u \cos u du - \int\limits_{\frac{\pi}2}^{\pi} u \cos u du} \cdot \int\limits_{0}^{+\infty} \frac{d\lr{1 + v}}{\lr{1 + v}^2} =
+        \begin{bmatrix}
+            & D & I \\
+            + & u & \cos u \\
+            - & 1 & \sin u \\
+            + & 0 & -\cos u
+        \end{bmatrix} = \\
+        &= \lr{\Eval{\lr{u \sin u - \cos u}}{0}{\frac{\pi}2} - \Eval{\lr{u \sin u - \cos u}}{\frac{\pi}2}{\pi}} \cdot \lr{\Eval{\frac1{1+v}}{+\infty}{0}} = \\
+        &= \lr{\lr{\frac\pi 2 \cdot 1 - 0} - \lr{0 - 1} - \lr{\pi \cdot 0 - (-1)} + \lr{\frac\pi 2 \cdot 1 - 0}} \cdot \lr{\frac{1}{1 + 0} - 0} = \pi
+    \end{align*}
+
+
+    \WFclear
+} {
+    $\pi$
+}

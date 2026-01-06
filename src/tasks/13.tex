@@ -1,0 +1,34 @@
+\task {
+    \newtaskref{series}
+} {
+    Вычислить: $\displaystyle \quad \sqrt[3]{3} \cdot \sqrt[9]{9} \cdot \sqrt[27]{27} \cdot \sqrt[81]{81} \cdot \ldots$
+} {
+    Перепишем наше бесконечное произведение в свернутом виде:
+        $$\sqrt[3]{3} \cdot \sqrt[9]{9} \cdot \sqrt[27]{27} \cdot \sqrt[81]{81} \cdot \ldots = \prod_{n=1}^{\infty} \lr{3^n}^{\frac1{3^n}}$$
+    
+    Упростим наше произведение, пользуясь правилами степеней:
+        $$\prod_{n=1}^{\infty} \lr{3^n}^{\frac1{3^n}} = \prod_{n=1}^{\infty} 3^{\frac n{3^n}} = 3^{\ \displaystyle \sum_{n=1}^{\infty} \frac n{3^n} } = 3 ^ S, \quad \text{где $S = \sum_{n=1}^{\infty} \frac n{3^n}$}$$
+    
+    Необходимо вычислить S. Введем новую функцию:
+        $$f(x) = \sum_{n=1}^{\infty}nx^n \eqno{(1)}$$
+    
+    Нужно определиться при каких $x$ ряд $(1)$ сходится. Применим признак д'Аламбера для сходимости ряда:
+        $$\lim \left| \frac{a_{n+1}x^{n+1}}{a_nx^n}\right| = \lim \frac{n+1}{n}\cdot |x|=|x|<1 \ \Leftrightarrow \ -1 < x < 1$$
+    
+    Таким образом, ряд cходится, если $-1 < x < 1$.\\[2mm]
+    
+    Число $\frac13$ лежит в области сходимости этого ряда. Тогда, $S = f\lr{\frac13}$. Найдем замкнутое выражение для функции $f(x)$. Для этого рассмотрим производную другого ряда:
+        $$\frac x{1-x} = \sum_{n=1}^{\infty} x^n$$
+        $$\lr{\frac x{1-x}}' = \sum_{n=1}^{\infty} nx^{n-1} = \frac1x \sum_{n=1}^{\infty} nx^n$$
+    
+    Отсюда видно, чему равняется ряд $(1)$:
+        $$f(x) = x \cdot \lr{\frac x{1-x}}' = x\cdot \frac{1\cdot(1-x)-x\cdot(-1)}{(1-x)^2} = \frac{x}{(1-x)^2}$$
+    
+    Тогда мы можем вычислить $S$:
+        $$S = f\lr{\frac13} = \frac{\frac13}{\lr{1-\frac13}^2}=\frac34$$
+    
+    Окончательно можем сказать, что
+        $$\sqrt[3]{3} \cdot \sqrt[9]{9} \cdot \sqrt[27]{27} \cdot \sqrt[81]{81} \cdot \ldots = 3^{\frac34}=\sqrt[4]{27}$$
+} {
+    $\sqrt[4]{27}$
+}

@@ -1,0 +1,205 @@
+\newtheoremproof {
+    Собственные числа $\lambda_k$ симметричной трёхдиагональной матрицы размера $n \times n$ вида
+    $$
+        \begin{bmatrix}
+            0 & 1 & 0 & \ldots & 0 & 0 \\
+            1 & 0 & 1 & \ldots & 0 & 0 \\
+            0 & 1 & 0 & \ldots & 0 & 0 \\
+            \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+            0 & 0 & 0 & \ldots & 0 & 1 \\
+            0 & 0 & 0 & \ldots & 1 & 0 \\
+        \end{bmatrix}
+    $$
+    находятся как $\lambda_k = 2\cos\lr{\frac{\pi k}{n + 1}},\quad k = \overline{1,n}$
+} {
+    \subsubsection*{1. Оценка спектрального радиуса матрицы.}
+    
+    \par Обозначим матрицу в условии как $A_n$. Возьмём произвольную матрицу $A = \{a_{ij}\}$ размера $n \times n$.
+    Оценим спектральный радиус $\rho(A_n)$ матрицы.
+    Воспользуемся тем, что для любой \textbf{индуцированной} нормы матрицы $\|\cdot\|$ верно равенство.
+    \[
+        \rho(A) \leqslant \|A\|
+    \]
+    \par Рассмотрим векторное пространство, снабженное нормой $\|\mathbf{x}\|_1=\sum_{i=1}^{n} \abs{x_i}$.
+    Тогда индуцированной матричной формой матрицы $A$ будет
+    \[
+        \| A \|_1 = \max_{1\leqslant j \leqslant n} \sum_{i = 1}^n \abs{a_{ij}}
+    \]
+    \par Получим оценку $\rho(A_n) \leqslant \|A_n\|_1 = \max \lr{1, 1 + 1, \ldots, 1} = 2$. Поскольку спектральный радиус матрицы определяется как $\displaystyle \rho(A) = \max_{\lambda_i \in \sigma(A)} \abs{\lambda_i}$, где $\sigma(A)$ --- спектр матрицы $A$,
+    то
+    \[
+        \forall \lambda \in \sigma(A_n) \Rightarrow \abs{\lambda} \leqslant 2 \eqno{(1)}
+    \]
+
+    \subsubsection*{2. Вывод реккурентного соотношения для определителя.}
+    \par Собственные числа матрицы $A_n$ вычисляются из уравнения
+    \[
+        \det\lr{A_n - \lambda E} = 0
+    \]
+    \[
+        A_n -\lambda E = \begin{bmatrix}
+            -\lambda & 1 & 0 & \ldots & 0 & 0 \\
+            1 & -\lambda & 1 & \ldots & 0 & 0 \\
+            0 & 1 & -\lambda & \ldots & 0 & 0 \\
+            \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+            0 & 0 & 0 & \ldots & -\lambda & 1 \\
+            0 & 0 & 0 & \ldots & 1 & -\lambda \\
+        \end{bmatrix}
+    \]
+    \par Обозначим через $f_n$ определитель $\det \lr{A_n - \lambda E}$. Вычислим первые два определителя:
+    \begin{align*}
+        f_1 &= \det \lr{A_1 - \lambda E} = \left\|\begin{matrix} -\lambda \end{matrix}\right\| = -\lambda \\
+        f_2 &= \det \lr{A_2 - \lambda E} = \left\|\begin{matrix} -\lambda & 1 \\ 1 & -\lambda \end{matrix}\right\| = \lambda^2 - 1
+    \end{align*}
+    
+    \par Вычислим определитель матрицы $A_n - \lambda E$ разложением по первой строке:
+    \[
+        \det \lr{A_n -\lambda E} = \left\|\begin{matrix}
+            -\lambda & 1 & 0 & \ldots & 0 & 0 \\
+            1 & -\lambda & 1 & \ldots & 0 & 0 \\
+            0 & 1 & -\lambda & \ldots & 0 & 0 \\
+            \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+            0 & 0 & 0 & \ldots & -\lambda & 1 \\
+            0 & 0 & 0 & \ldots & 1 & -\lambda \\
+        \end{matrix}\right\| = \lr{-1}^{1 + 1} (-\lambda) f_{n - 1} + \lr{-1} ^ {1 + 2} \lr{-1}^{1 + 1} \cdot 1 \cdot f_{n - 2} = -\lambda f_{n - 1} - f_{n - 2}
+    \]
+    \par Получаем линейное однородное реккурентное уравнение $2^{\underline{\text{го}}}$ порядка:
+    \[
+        f_n = -\lambda \cdot f_{n - 1} - f_{n - 2} \eqno{(2)}
+    \]
+    \par Начальные условия для уравнения $(2)\colon\;
+        f_0 = 1,\footnotemark
+        f_1 = -\lambda
+    $.
+
+    \footnotetext{
+        \(f_2 = -\lambda \cdot f_1 - f_0 \Rightarrow \lambda^2 - 1 = (-\lambda) \cdot (-\lambda) - f_0 \Rightarrow f_0 = 1\)
+    }
+    
+
+    \subsubsection*{3. Решение реккурентного соотношения.}
+    \par Можно решить это уравнение \((2)\) разными способами, но мы выберем метод генеративных функций. Положим 
+    \[ G(z) = \sum_{n = 0}^{\infty} f_n z^n \]
+    \par Умножим обе части уравнения $(2)$ на $z^n$:
+    \begin{align*}
+        f_n z^n = -\lambda \cdot f_{n - 1} z^n - f_{n - 2} z^n \\
+        f_n z^n = -\lambda z \cdot f_{n - 1} z^{n - 1} - z^2 f_{n - 2} z^{n - 2}
+    \end{align*}
+    \par Просуммируем последнее равенство по всем натуральным $n \geqslant 2$:
+    \begin{align*}
+        \sum_{n = 2}^{\infty} f_n z^n &= -\lambda z \cdot \sum_{n = 2}^{\infty} f_{n - 1} z^{n - 1} - z^2 \sum_{n = 2}^{\infty} f_{n - 2} z^{n - 2} \\
+        \sum_{n = 0}^{\infty} f_n z^n - f_0 z^0 - f_1 z^1 &= -\lambda z \cdot \lr{\sum_{n = 0}^{\infty} f_{n} z^{n} - f_0 z^0} - z^2 \sum_{n = 0}^{\infty} f_{n} z^{n} \\
+        \lr{1 + \lambda z + z^2} \cdot \sum_{n = 0}^{\infty} f_n z^n &= 1 -\lambda z + \lambda z \cdot 1 \\
+        \lr{1 + \lambda z + z^2} \cdot G(z) &= 1 \\
+        G(z) &= \frac{1}{1 + \lambda z + z^2}
+    \end{align*}
+    Знаменателем этой дроби является многочлен 2-ой степени. Пусть $z_1,z_2$ являются корнями этого многочлена. Разложим дробь, используя метод неопределенных коэффициентов
+    \[
+        G(z) = \frac{1}{1 + \lambda z + z^2} = \frac{A}{z - z_1} + \frac{B}{z - z_2} = \frac{\lr{A + B}z - \lr{Az_2 + Bz_1}}{\lr{z - z_1}\lr{z - z_2}} \eqno{(3)}
+    \]
+    \par Получим систему относительно неизвестных $A, B$:
+    \[
+        \begin{matrix}
+            z^0\colon\\
+            z^1\colon
+        \end{matrix}
+        \begin{cases}
+            A + B = 0 \\
+            Az_2 + Bz_1 = 1
+        \end{cases}
+    \]
+    \par Наша система совместна и определена, если $z_1 \neq z_2$.
+    \par Условие $z_1 \neq z_2$ требует ненулевого дискриминанта у многочлена $z^2 + \lambda z + 1$.
+    \begin{gather*}
+        D = \lambda^2 - 4 \cdot 1 \cdot 1 \neq 0\\
+        \lambda^2 \neq 4
+    \end{gather*}
+    \[
+        \lambda \neq \pm 2
+    \]
+
+    \par Объединив последнее неравенство с неравенством $(1)$, получим ограничение в виде строго неравенства
+    \[
+        \forall \lambda \in \sigma(A_n) \Rightarrow \abs{\lambda} < 2 \eqno{(4)}
+    \]
+    \par Из первого уравнения системы получаем $A = -B$. Подставим это выражение в уравнение $(3)$.
+    \[
+        G(z) = \frac{-B}{z - z_1} + \frac{B}{z - z_2} = B \lr{\frac1{z_1 - z} - \frac1{z_2 - z}}
+    \]
+    \par Затем преобразуем это выражение и разложим получившиеся дроби в ряд.
+    \[
+        G(z) = B \lr{\frac1{z_1}\frac1{1 - \frac{z}{z_1}} - \frac1{z_2}\frac1{1 - \frac{z}{z_2}}}
+        = B \lr{
+            \sum_{n = 0}^{\infty} \frac{z^n}{z_1^{n + 1}} - \sum_{n = 0}^{\infty} \frac{z^n}{z_2^{n + 1}}
+        } = \sum_{n = 0}^{\infty} B \lr{z_1^{-n-1} - z_2^{-n-1}} \cdot z^n
+    \]
+    \par Сравним определение генеративной функции $G(z)$ и последнее выражение, получим что
+    \[
+        f_n = B \lr{z_1^{-n-1} - z_2^{-n-1}}
+    \]
+    \par Теперь, согласно алгоритму поиска собственного числа, необходимо решить уравнение
+    \begin{gather*}
+        \det \lr{A_n - \lambda E} = 0 \\
+        f_n = B \lr{z_1^{-n-1} - z_2^{-n-1}} = 0 \\
+        z_1^{-n-1} = z_2^{-n-1}
+    \end{gather*}
+
+    \subsubsection*{4. Анализ корней \(z_1,z_2\) и переход к экспоненциальной форме.}
+    \par Воспользуемся формулой Эйлера для того, чтобы представить числа $z_1, z_2$ в экспоненциальной форме
+    \begin{align*}
+        z_1 &= \abs{z_1} e^{i\varphi_1} \\
+        z_2 &= \abs{z_2} e^{i\varphi_2}
+    \end{align*}
+    где $\varphi_1, \varphi_1 \in \left( -\pi;\pi \right]$ --- аргументы соответственно чисел $z_1, z_2$.
+
+    \par Покажем, что $\abs{z_1} = \abs{z_2} = 1$ и $z_1 = \overline{z_2}$. Вспомним, что $z_1, z_2$ --- корни уравнения $1 + \lambda z + z^2$, тогда
+    \begin{align*}
+        D &= \lambda^2 - 4 < 0,\quad\text{т.к. $\;\abs{\lambda} < 2$} \Rightarrow \mathrm{Im}\lr{z_{1,2}} \neq 0\\
+        z_{1,2} &= - \frac\lambda2 \pm i \sqrt{1 - \lr{\frac\lambda2}^2} \\
+        \abs{z_{1,2}} &= \sqrt{\lr{-\frac\lambda2}^2 - \lr{\frac\lambda2}^2 + 1} = 1
+    \end{align*}
+    \par Имеем $z_1 z_2 = 1$ по теореме Виета и \(\abs{z_1} = \abs{z_2} = 1\), тогда \(z_1 = \overline{z_2}\).
+
+    \par На основании этого имеем
+    \begin{gather*}
+        z_1^{-n-1} = z_2^{-n-1} \\
+        \abs{z_1}^{-n-1} e^{-(n + 1) i \varphi_1} = \abs{z_2}^{-n-1} e^{-(n + 1) i \varphi_2} \\
+        e^{-(n + 1) i \varphi_1} = e^{-(n + 1) i \varphi_2}
+    \end{gather*}
+    \par Так как $z_1 = \overline{z_2}$, то $\varphi_1 = -\varphi_2$. Сделаем замену $\varphi_1 = \varphi$ и $\varphi_2 = -\varphi$. Тогда
+    \begin{gather*}
+        e^{-(n + 1) i \varphi} = e^{-(n + 1) i (-\varphi)} \\
+        e^{-2(n + 1) i \varphi } = 1 \\
+    \end{gather*}
+    \par Представим число $1$ в экспоненциальной форме:
+    \[
+        1 = e^{0 i}
+    \]
+    \par Так как комплексная экспонента периодична с основным периодом $2\pi i$, получаем
+    \begin{gather*}
+        -2(n + 1) i \varphi = (0 + 2\pi k) i,\quad k \in \mathbb{Z} \\
+        \varphi = - \frac{\pi k}{n + 1}
+    \end{gather*}
+
+    \subsubsection*{5. Получение явного вида \(\lambda_k\) и симметризация.}
+    \par Заметим, что $\mathrm{Re}\lr{z_1} = \cos \varphi_1 = \cos \varphi = -\frac\lambda2$. Тогда
+    \begin{gather*}
+        \cos \varphi = \cos \lr{- \frac{\pi k}{n + 1}} \\
+        -\frac\lambda2 = \cos \lr{\frac{\pi k}{n + 1}} \\
+        \lambda = -2 \cos \lr{\frac{\pi k}{n + 1}}
+    \end{gather*}
+
+    Так как \((4)\) и функция \(\cos\) периодична, то можно ограничиться выбором чисел \(k\) до набора \(A = \{1, 2, \ldots, n\}\). Обозначим собственное значение на этом множестве как \(\lambda(k)\), тогда
+    \[
+        \lambda(k) = -2 \cos \lr{\frac{\pi k}{n + 1}} = 2 \cos \lr{\pi - \frac{\pi k}{n + 1}} = 2 \cos \lr{\frac{\pi \lr{n - k + 1}}{n + 1}} = -\lambda(n - k + 1)
+    \]
+
+    Поскольку замена \(k \mapsto n - k + 1\) меняет только порядок элементов набора \(A\), то знак <<\(-\)>> можно опустить
+    в силу того, что значения функции \(\lambda(k)\) на первой половине набора отличается только знаком
+    от значений этой же функции на второй половине набора.
+
+    Окончательно, собственные числа матрицы \(A_n\) находятся как
+    \[
+        \lambda_k = 2 \cos \lr{\frac{\pi k}{n + 1}},\quad k = \overline{1,n}.
+    \]
+}

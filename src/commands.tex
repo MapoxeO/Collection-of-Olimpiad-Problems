@@ -1,0 +1,64 @@
+% shortcuts
+\newcommand{\lr}[1]{\left( {#1} \right)}
+\newcommand{\floor}[1]{\left \lfloor {#1} \right \rfloor}
+\newcommand{\ceil}[1]{\left \lceil {#1} \right \rceil}
+\newcommand{\round}[1]{\left \lfloor {#1} \right \rceil}
+\newcommand{\rank}[1]{\mathrm{rank}\:#1}
+\newcommand{\Eval}[3]{\left.#1\right|_{#2}^{#3}}
+
+\newcommand{\task}[4]{
+	\stepcounter{taskcounter}
+	\phantomsection \hypertarget{task:\thetaskcounter}{}
+	#1
+	\subsection*{ \underline{Задача \thetaskcounter.} }
+	#2
+	\paragraph { \underline{Решение:} }
+	#3
+	\if\relax\detokenize{#4}\relax%
+	\else%
+		\paragraph { \underline{Ответ:} } #4%
+	\fi%
+	\clearpage
+}
+
+\newcommand{\newtaskcounter}[1] {
+	\newcounter{task#1} \setcounter{task#1}{0}
+}
+
+\newcommand{\custompageref}[2] {
+	\hyperlink{#1}{#2}
+}
+
+\newcommand{\newtheoremwoproof}[1] {
+	\stepcounter{\ctheorem}
+	\begin{theorem} \hypertarget{theorem:\thectheorem}{}
+		#1
+	\end{theorem}
+}
+
+\newcommand{\newtheoremproof}[2] {
+	\stepcounter{ctheorem}
+	\phantomsection \hypertarget{theorem:\thectheorem}{}
+	\subsection*{ \underline{Теорема \thectheorem.} }
+	#1
+	\paragraph { \underline{Доказательство:} }
+	\  \par
+	#2 \newline
+	\clearpage
+}
+
+\newcommand{\newlemmaproof}[2] {
+	\stepcounter{clemma}
+	\phantomsection \hypertarget{lemma:\theclemma}{}
+	\subsection*{ \underline{Лемма \theclemma.} }
+	#1
+	\paragraph { \underline{Доказательство:} }
+	\  \par
+	#2 \newline
+}
+
+% \newcommand{\strikeline}[1]{%
+%     \tikz[remember picture, baseline=(#1.base)] \node[inner sep=0pt] (#1) {\vphantom{X}};%
+% }
+
+\input{src/precompiled/commands.tex}

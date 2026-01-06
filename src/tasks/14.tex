@@ -1,0 +1,46 @@
+\task {
+    \newtaskref{series}
+} {
+    Решить уравнение: $\quad \displaystyle \sum_{n=0}^{\infty} (-1)^{n+1}nx^{n+1}=\frac1{4084441}$
+} {
+    Рассмотрим ряд $(1)\colon$ $\displaystyle \sum_{n=1}^{\infty}nx^n$. Найдем его область сходимости. Воспользуемся радикальным признаком Коши:
+    $$\lim_{n \to \infty} \sqrt[n]{\ \abs{u_n(x)}} = \lim_{n \to \infty} \sqrt[n]{\ \abs{nx^n}} = \abs{x} \cdot \lim_{n \to \infty} n^{\frac 1n} = |x| \cdot 1 < 1 \;\Leftrightarrow\;-1<x<1$$
+
+    Преобразуем ряд $(1)$, и заметим, что он сводится к производной обычного геометрического ряда:
+    $$\sum_{n=1}^{\infty}nx^n = x\sum_{n=1}^{\infty}nx^{n-1}=x \cdot \frac{d}{dx}\lr{\sum_{n=1}^{\infty}x^n}=x\cdot\frac{d}{dx}\lr{-1+\frac1{1-x}}=\frac{x}{(1-x)^2}$$
+
+    Заметим, что исходный ряд получается из ряда $(1)$ заменой $x \mapsto -x$:
+    $$\sum_{n=0}^{\infty}(-1)^{n+1}nx^{n+1}=(-x)\cdot\sum_{n=0}^{\infty}n(-x)^n=(-x)\cdot\frac{-x}{(1+x)^2}=\frac{x^2}{(1+x)^2}$$
+
+    Этот ряд сходится в той же области, что и ряд $(1)$.
+
+    Остается решить уравнение
+    $$\frac{x^2}{(1+x)^2}=\frac1{4084441}$$
+
+    Заметим, что $4084441=2021^2$, и возьмем квадратный корень из обоих частей уравнения. Тогда наше уравнение легко преобразуется:
+    \begin{align*}
+        \frac{x^2}{(1+x)^2} = \frac1{2021^2} \; &\Leftrightarrow \; \sqrt{\frac{x^2}{(1+x)^2}} = \sqrt{\frac1{2021^2}}\\
+        \abs{\frac{x}{1+x}} = \frac1{2021} \;  &\Leftrightarrow \; \frac{-1+1+x}{1+x} = \pm\frac1{2021}\\
+        1-\frac1{1+x} = \pm\frac1{2021} \;  &\Leftrightarrow \;
+        \frac1{1+x} = \frac{2021\pm1}{2021}\\
+    \end{align*}
+    $$\left[ \begin{gathered}
+        1+x=\frac{2021}{2021+1}\\
+        1+x=\frac{2021}{2021-1}\hfill
+    \end{gathered} \right.
+    \;\Leftrightarrow \;
+    \left[ \begin{gathered}
+        x=\frac{2021-2022}{2022}\\
+        x=\frac{2021-2020}{2020}\hfill
+    \end{gathered} \right.
+    \;\Leftrightarrow \;
+    \left[ \begin{gathered}
+        x=\frac{-1}{2022}\\
+        x=\frac{1}{2020}\hfill
+    \end{gathered} \right.
+    $$\\[4mm]
+    
+    Нетрудно проверить, что оба корня лежат в области сходимости ряда: $-1 <x <1$.
+} {
+    $\frac{-1}{2022};\;\frac{1}{2020}$
+}

@@ -1,0 +1,39 @@
+\task {
+    \newtaskref{diffeqs} \newtaskref{integrals}
+}{
+    Решить дифференциальное уравнение
+    $$\int \limits_{0}^{\frac{dy}{dx}} { \frac{\cos t\  dt}{16 + 9 \sin^2 t} } = \frac1{12}\arctg{x}$$
+} {
+    Чтобы найти решение этого дифференциального уравнения, необходимо вычислить соответствующий интеграл:
+    $$ \int \frac{\cos t \ dt}{16 + 9 \sin^2 t} = \left[ \begin{matrix}
+        u = \sin t \\
+        du = \cos t dt \\
+        \end{matrix} \right] = \frac1{16} \int \frac{du}{1 + \frac{9}{16}u^2} = \frac1{16} \int \frac{ \frac43 d\lr{\frac{3u}4}}{1 + \lr{\frac{3u}4}^2} = \frac1{12} \arctg{\frac{3 \sin t}4}$$
+        
+    Тогда наше уравнение примет следующий вид:
+        $$ \int \limits_{0}^{\frac{dy}{dx}} { \frac{\cos t\  dt}{16 + 9 \sin^2 t} } = \eval{ \frac1{12} \arctg{\frac{3 \sin t}4} }_0^{y'} = \frac1{12} \arctg{\frac{3 \sin y'}4} = \frac1{12}\arctg{x}$$
+        
+    Теперь воспользуемся тем, что функция $f(x) = \arctg x$ строго монотонная на $\mathbb{R}$, значит если значения функций равны, то и аргументы функций обязаны быть равны:
+        $$ \frac1{12} \arctg{\frac{3 \sin y'}4} = \frac1{12}\arctg{x} \ \Leftrightarrow \ \frac{3 \sin y'}4 = x \  \Leftrightarrow \  \sin y' = \frac{4x}{3}$$
+    
+    Это уравнение имеет решение только при $\displaystyle \left| \frac{4x}{3} \right| \leq 1$, т.е. при $ \frac34 \leq x \leq \frac34$. Разрешим его относительно производной как обычное тригонометрическое уравнение с синусом:
+        $$\sin y' = \frac{4x}3 \ \Leftrightarrow \ y' = (-1)^k \arcsin{\frac{4x}3} + \pi k, \ k \in\mathbb{Z}$$
+        $$y = \int \lr{(-1)^k \arcsin{\frac{4x}3} + \pi k} dt = C + \pi k x + \frac{3(-1)^k}4 \int \arcsin \lr{ \frac{4x}3 } d\lr{\frac{4x}3}$$
+    
+    Остается только найти интеграл от арксинуса. Сделаем это отдельно:
+    \begin{equation*} \begin{split}
+        & \int \arcsin{x} \ dx =
+        \left[ \begin{matrix}
+            u = \arcsin x &\Rightarrow & du = \frac{dx}{\sqrt{1-x^2}} \\
+            dv = dx &\Rightarrow & v = x \\
+        \end{matrix} \right]
+        = x \arcsin{x} - \int \frac{x}{\sqrt{1-x^2}} dx = \\
+        &= x \arcsin{x} + \int d\lr{\sqrt{1-x^2}} = x \arcsin{x} + \sqrt{1-x^2} + C
+    \end{split} \end{equation*}
+    
+    Тогда остается подставить полученный интеграл и получим наш ответ:
+        $$y = C + \pi kx + \frac{3(-1)^k}4\lr{ \frac{4x}3 \arcsin{\frac{4x}3} + \sqrt{1 - \lr{\frac{4x}3}^2}}$$
+        $$y = C + \pi kx + (-1)^k\lr{ x \arcsin{\frac{4x}3} + \sqrt{\lr{\frac34}^2 - x^2}}, \ k\in\mathbb{Z}$$
+} {
+    $y = C + \pi kx + (-1)^k\lr{ x \arcsin{\frac{4x}3} + \sqrt{\lr{\frac34}^2 - x^2}}, \ k\in\mathbb{Z}$
+}
